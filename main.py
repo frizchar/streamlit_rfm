@@ -17,3 +17,22 @@ if uploaded_file:
 
     st.write("Uploaded Data:")
     st.write(df.head())
+
+    # Calculate snapshot date (max date + 1 day)
+    snapshot_date = df['orderDate'].max() + pd.Timedelta(days=1)
+
+    # Calculate RFM metrics
+    rfm = df.groupby('customerID').agg({
+        'orderDate': lambda x: (snapshot_date - x.max()).days,  # Recency
+        'orderID': 'nunique',  # Frequency
+        'totalAmount': 'sum'  # Monetary Value
+    }).reset_index()
+
+    rfm.rename(columns={
+        'orderDate': 'Recency',
+        'orderID': 'Frequency',
+        'totalAmount': 'MonetaryValue'
+    }, inplace=True)
+
+    st.write("RFM Metrics:")
+    st.dataframe(rfm)

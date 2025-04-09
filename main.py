@@ -24,8 +24,8 @@ if uploaded_file:
     # Calculate RFM metrics
     rfm = df.groupby('customerID').agg({
         'orderDate': lambda x: (snapshot_date - x.max()).days,  # Recency
-        'orderID': 'nunique',  # Frequency
-        'totalAmount': 'sum'  # Monetary Value
+        'orderID': lambda x: len(x),  # Frequency
+        'totalAmount': lambda x: x.sum()  # Monetary Value
     }).reset_index()
 
     rfm.rename(columns={

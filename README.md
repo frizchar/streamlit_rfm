@@ -1,2 +1,2 @@
 # streamlit_rfm
-streamlit app - RFM analysis
+streamlit app on RFM analysis

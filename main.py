@@ -36,3 +36,9 @@ if uploaded_file:
 
     st.write("RFM Metrics:")
     st.dataframe(rfm)
+
+    quantiles = rfm[['Recency','Frequency','MonetaryValue']].quantile(q=[0.25,0.5,0.75])
+    st.write("RFM dtypes:")
+    st.dataframe(rfm.dtypes)
+    st.write("RFM quantiles:")
+    st.dataframe(quantiles)

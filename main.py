@@ -3,6 +3,7 @@ import streamlit as st
 
 st.set_page_config(
     page_title="customma",  # Title displayed in the browser tab
+    layout="wide"
 )
 
 # Streamlit app setup
@@ -19,8 +20,16 @@ if uploaded_file:
     # Ensure proper data types
     df['orderDate'] = pd.to_datetime(df['orderDate'], dayfirst=True)
 
-    st.write("Uploaded Data:")
-    st.write(df.head())
+    # Create two columns
+    col1, col2 = st.columns(2)
+    # Display uploaded data in the left column
+    with col1:
+        st.write("Uploaded Data:")
+        st.write(df.head())
+    # Create a chart using Plotly and display it in the right column
+    with col2:
+        st.markdown('<h1 style="font-size:20px;"># of unique customers:</h1>', unsafe_allow_html=True)
+        st.write(df['customerID'].nunique())
 
     # Calculate snapshot date (max date + 1 day)
     snapshot_date = df['orderDate'].max() + pd.Timedelta(days=1)

@@ -1,9 +1,13 @@
 import pandas as pd
 import streamlit as st
-from datetime import datetime
+
+st.set_page_config(
+    page_title="customma",  # Title displayed in the browser tab
+)
 
 # Streamlit app setup
-st.title("RFM Analysis")
+# st.title("customer segmentation::RFM analysis")
+st.markdown('<h1 style="font-size:35px;">customer segmentation::RFM analysis</h1>', unsafe_allow_html=True)
 
 # File uploader
 uploaded_file = st.file_uploader(label="Upload your CSV file", type=["csv"])

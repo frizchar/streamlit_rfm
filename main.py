@@ -8,7 +8,7 @@ st.set_page_config(
 
 # Streamlit app setup
 # st.title("customer segmentation::RFM analysis")
-st.markdown('<h1 style="font-size:30px;">customer segmentation::RFM analysis</h1>', unsafe_allow_html=True)
+st.markdown('<h1 style="font-size:30px;">customer segmentation :: RFM analysis</h1>', unsafe_allow_html=True)
 
 # File uploader
 uploaded_file = st.file_uploader(label="Upload your CSV file", type=["csv"])
@@ -30,7 +30,7 @@ if uploaded_file:
     # Display uploaded data in the left column
     with col1:
         st.write("Uploaded Data:")
-        st.write(df.head())
+        st.dataframe(df, height=220)
     # Create a chart using Plotly and display it in the right column
     with col2:
         # st.markdown('<h1 style="font-size:20px;"># of unique customers:</h1>', unsafe_allow_html=True)

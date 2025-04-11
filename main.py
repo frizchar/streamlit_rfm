@@ -2,9 +2,16 @@ import pandas as pd
 import streamlit as st
 
 st.set_page_config(
-    page_title="customma",  # Title displayed in the browser tab
+    page_title="customa",  # Title displayed in the browser tab
     layout="wide"
 )
+
+# insert logo from source: https://www.svgrepo.com/
+with open("C:/Users/c.chrysanthakopoulos/Desktop/powerBI/Dashboards/rfm__V06/customa2.svg", "r") as f:
+    svg_content = f.read()
+
+# Display the SVG
+st.image(svg_content, width=80)
 
 # Streamlit app setup
 # st.title("customer segmentation::RFM analysis")

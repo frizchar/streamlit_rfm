@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 import numpy as np
-from datetime import datetime
+import os
 
 
 st.set_page_config(
@@ -9,8 +9,12 @@ st.set_page_config(
     layout="wide"
 )
 
-# insert logo from source: https://www.svgrepo.com/
-with open("C:/Users/c.chrysanthakopoulos/Desktop/powerBI/Dashboards/rfm__V06/customa4.svg", "r") as f:
+# insert logo, source: https://www.svgrepo.com/
+working_directory = os.getcwd()
+relative_path = "customa4.svg"
+full_path = os.path.join(working_directory, relative_path)
+
+with open(full_path, "r") as f:
     svg_content = f.read()
 
 # Display the SVG
@@ -19,6 +23,8 @@ st.image(svg_content, width=80)
 # Streamlit app setup
 # st.title("customer segmentation::RFM analysis")
 st.markdown('<h1 style="font-size:30px;">customer segmentation :: RFM analysis</h1>', unsafe_allow_html=True)
+
+st.write("<desc placeholder>")
 
 # File uploader
 uploaded_file = st.file_uploader(
@@ -49,9 +55,9 @@ if uploaded_file:
     # Name the index
     df.index.name = '#'
     # Set column headers to center alignment
-    pd.set_option('display.colheader_justify', 'center')
+    # pd.set_option('display.colheader_justify', 'center')
 
-    meta_dict = {
+    metadata_dict = {
         '# of rows': len(df),
         '# of unique customers': df['customerID'].nunique(),
         'time period': "[" + min(df['orderDate']).strftime("%d/%m/%Y") + ", " +
@@ -71,7 +77,7 @@ if uploaded_file:
         # Convert dictionary to DataFrame
         st.write("Metadata:")
         # st.write(df_meta)
-        st.json(meta_dict)
+        st.json(metadata_dict)
 
     # Calculate snapshot date (max date + 1 day)
     snapshot_date = df['orderDate'].max() + pd.Timedelta(days=1)

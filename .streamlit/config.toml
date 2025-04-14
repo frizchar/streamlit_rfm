@@ -1,6 +1,6 @@
 [theme]
-backgroundColor = "#ACB5AF" # "#BBD0BA"  # "#C6D2D4" # "#658C72"  # "#042440"
+backgroundColor = "#D9D5C8" # "#B1BCBE"  # "#ACB5AF" # "#BBD0BA"  # "#C6D2D4" # "#658C72"  # "#042440"
 # source: https://www.schemecolor.com/interiors-of-hair-saloon.php
 # secondaryBackgroundColor = "#053259"
-# textColor="#FFFFFF"
+textColor= "#133b5e"  #"#FFFFFF"
 # font="garamont"

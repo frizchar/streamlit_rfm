@@ -7,7 +7,7 @@ st.set_page_config(
 )
 
 # insert logo from source: https://www.svgrepo.com/
-with open("C:/Users/c.chrysanthakopoulos/Desktop/powerBI/Dashboards/rfm__V06/customa2.svg", "r") as f:
+with open("C:/Users/c.chrysanthakopoulos/Desktop/powerBI/Dashboards/rfm__V06/customa4.svg", "r") as f:
     svg_content = f.read()
 
 # Display the SVG
@@ -18,7 +18,22 @@ st.image(svg_content, width=80)
 st.markdown('<h1 style="font-size:30px;">customer segmentation :: RFM analysis</h1>', unsafe_allow_html=True)
 
 # File uploader
-uploaded_file = st.file_uploader(label="Upload your CSV file", type=["csv"])
+uploaded_file = st.file_uploader(
+    label="Upload your CSV file",
+    type=["csv"],
+    help = "file requirements:",
+    label_visibility="visible"
+)
+
+# Apply custom CSS to adjust the width
+css = '''
+<style>
+[data-testid='stFileUploader'] {
+    width: 500px; /* Adjust the width as needed */
+}
+</style>
+'''
+st.markdown(css, unsafe_allow_html=True)
 
 if uploaded_file:
     # Load the data

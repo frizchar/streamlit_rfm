@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import numpy as np
 
 st.set_page_config(
     page_title="customa",  # Title displayed in the browser tab
@@ -29,7 +30,7 @@ uploaded_file = st.file_uploader(
 css = '''
 <style>
 [data-testid='stFileUploader'] {
-    width: 500px; /* Adjust the width as needed */
+    width: 520px; /* Adjust the width as needed */
 }
 </style>
 '''
@@ -41,6 +42,8 @@ if uploaded_file:
 
     # Ensure proper data types
     df['orderDate'] = pd.to_datetime(df['orderDate'], dayfirst=True)
+    # Reindex to start from 1
+    df.index = np.arange(1, len(df) + 1)
 
     meta_dict = {
         '# of rows': len(df),

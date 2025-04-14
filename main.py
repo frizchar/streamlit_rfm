@@ -1,6 +1,8 @@
 import pandas as pd
 import streamlit as st
 import numpy as np
+from datetime import datetime
+
 
 st.set_page_config(
     page_title="customa",  # Title displayed in the browser tab
@@ -44,10 +46,16 @@ if uploaded_file:
     df['orderDate'] = pd.to_datetime(df['orderDate'], dayfirst=True)
     # Reindex to start from 1
     df.index = np.arange(1, len(df) + 1)
+    # Name the index
+    df.index.name = '#'
+    # Set column headers to center alignment
+    pd.set_option('display.colheader_justify', 'center')
 
     meta_dict = {
         '# of rows': len(df),
-        '# of unique customers': df['customerID'].nunique()
+        '# of unique customers': df['customerID'].nunique(),
+        'time period': "[" + min(df['orderDate']).strftime("%d/%m/%Y") + ", " +
+                       max(df['orderDate']).strftime("%d/%m/%Y") + "]"
     }
 
     # Create two columns

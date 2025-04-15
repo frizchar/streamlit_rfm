@@ -24,7 +24,7 @@ st.image(svg_content, width=80)
 # st.title("customer segmentation::RFM analysis")
 st.markdown('<h1 style="font-size:30px;">customer segmentation :: RFM analysis</h1>', unsafe_allow_html=True)
 
-st.write("<desc placeholder>")
+st.write("marketing analysis SaaS")
 
 # File uploader
 uploaded_file = st.file_uploader(
@@ -148,9 +148,8 @@ if uploaded_file:
         st.dataframe(rfmSegmentation)
     # Display a chart of unique customers per RFM class in the right column
     with col2:
-        # st.write("# customers per RFM class")
         # count of unique customers per RFM class
-        customer_counts = rfmSegmentation['RFMClass'].value_counts().astype(int)
+        customer_counts = rfmSegmentation['RFMClass'].value_counts()
 
         # Add a title above the chart
         st.subheader('# of customers per RFM class')

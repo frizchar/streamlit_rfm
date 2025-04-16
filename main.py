@@ -24,10 +24,9 @@ st.image(svg_content, width=80)
 # st.title("customer segmentation::RFM analysis")
 st.markdown('<h1 style="font-size:30px;">customer segmentation :: RFM analysis</h1>', unsafe_allow_html=True)
 
-st.write("""
-**marketing analytics app about customer segmentation 
-via recency (R), frequency (F) and monetary (M) analysis** \n
-**try out the app with the example CSV file**
+st.text("""
+marketing analytics app about customer segmentation via recency (R), frequency (F) and monetary (M) analysis
+try out the app with the example .csv file
 """)
 
 # Create an example DataFrame
@@ -42,7 +41,7 @@ example_csv = example_data.to_csv(index=False).encode('utf-8')
 
 # Add a download button for the example CSV file
 st.download_button(
-    label="download example CSV file",
+    label="download example .csv file",
     data=example_csv,
     file_name="example.csv",
     mime="text/csv"

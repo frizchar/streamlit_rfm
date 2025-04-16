@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import numpy as np
 import os
+import altair as alt
 
 
 st.set_page_config(
@@ -157,24 +158,32 @@ if uploaded_file:
                                   + rfmSegmentation.F_Quartile.map(str) \
                                   + rfmSegmentation.M_Quartile.map(str)
 
-    # Create two columns
+    # create two columns
     col1, col2 = st.columns([2, 1])
-    # Display segments datafrate in the left column
+    # display RFM class per customer in the left column
     with col1:
         st.write("Segment per customer:")
         st.dataframe(rfmSegmentation)
-    # Display a chart of unique customers per RFM class in the right column
+    # display a chart of unique customers per RFM class in the right column
     with col2:
-        df_counts = pd.DataFrame()
-        # count of unique customers per RFM class
-        df_counts['customer_counts'] = rfmSegmentation['RFMClass'].value_counts()
-        df_counts['class'] = rfmSegmentation['RFMClass']
-        df_counts = df_counts.sort_values(by='customer_counts', ascending=False)
-        # df_counts = df_counts.set_index('class')
+        st.subheader("# customers per class:")
+        # Count of unique customers per class
+        counts = rfmSegmentation['RFMClass'].value_counts().sort_values(ascending=False)
+        counts_df = counts.reset_index()
+        counts_df.columns = ['class', 'count']
 
-        # Add a title above the chart
-        st.subheader('# of customers per RFM class')
+        # create a bar chart
+        top_users = (
+            pd.DataFrame(
+                {
+                    "name": ["John", "Emma", "Kelly", "Brad", "Rachel"],
+                    "views": [300, 200, 250, 400, 50],
+                }
+            )
+            .sort_values(by="views", ascending=False)
+            .reset_index(drop=True)
+        )
 
-        # Create a bar chart using Streamlit's st.bar_chart
-        st.bar_chart(df_counts, horizontal=True)
-        # st.dataframe(df_counts)
+        # Desired sorting
+        c = alt.Chart(counts_df).mark_bar().encode(x=alt.X("class", sort=None), y="count")
+        st.altair_chart(c, use_container_width=True)

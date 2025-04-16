@@ -165,11 +165,16 @@ if uploaded_file:
         st.dataframe(rfmSegmentation)
     # Display a chart of unique customers per RFM class in the right column
     with col2:
+        df_counts = pd.DataFrame()
         # count of unique customers per RFM class
-        customer_counts = rfmSegmentation['RFMClass'].value_counts()
+        df_counts['customer_counts'] = rfmSegmentation['RFMClass'].value_counts()
+        df_counts['class'] = rfmSegmentation['RFMClass']
+        df_counts = df_counts.sort_values(by='customer_counts', ascending=False)
+        # df_counts = df_counts.set_index('class')
 
         # Add a title above the chart
         st.subheader('# of customers per RFM class')
 
         # Create a bar chart using Streamlit's st.bar_chart
-        st.bar_chart(customer_counts, horizontal=True)
+        st.bar_chart(df_counts, horizontal=True)
+        # st.dataframe(df_counts)

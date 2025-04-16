@@ -24,11 +24,33 @@ st.image(svg_content, width=80)
 # st.title("customer segmentation::RFM analysis")
 st.markdown('<h1 style="font-size:30px;">customer segmentation :: RFM analysis</h1>', unsafe_allow_html=True)
 
-st.write("marketing analysis SaaS")
+st.write("""
+**marketing analytics app about customer segmentation 
+via recency (R), frequency (F) and monetary (M) analysis** \n
+**try out the app with the example CSV file**
+""")
+
+# Create an example DataFrame
+example_data = pd.DataFrame({
+    "Name": ["Alice", "Bob", "Charlie"],
+    "Age": [25, 30, 35],
+    "City": ["New York", "Los Angeles", "Chicago"]
+})
+
+# Convert the DataFrame to a CSV string
+example_csv = example_data.to_csv(index=False).encode('utf-8')
+
+# Add a download button for the example CSV file
+st.download_button(
+    label="download example CSV file",
+    data=example_csv,
+    file_name="example.csv",
+    mime="text/csv"
+)
 
 # File uploader
 uploaded_file = st.file_uploader(
-    label="Upload your CSV file",
+    label="upload your CSV file",
     type=["csv"],
     help = "file requirements:",
     label_visibility="visible"
@@ -72,11 +94,7 @@ if uploaded_file:
         st.dataframe(df, height=220)
     # Create a chart using Plotly and display it in the right column
     with col2:
-        # st.markdown('<h1 style="font-size:20px;"># of unique customers:</h1>', unsafe_allow_html=True)
-        # st.write(df['customerID'].nunique())
-        # Convert dictionary to DataFrame
         st.write("Metadata:")
-        # st.write(df_meta)
         st.json(metadata_dict)
 
     # Calculate snapshot date (max date + 1 day)

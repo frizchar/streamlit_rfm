@@ -11,7 +11,7 @@ st.set_page_config(
 
 # insert logo, source: https://www.svgrepo.com/
 working_directory = os.getcwd()
-relative_path = "customa4.svg"
+relative_path = "customa2.svg"
 full_path = os.path.join(working_directory, relative_path)
 
 with open(full_path, "r") as f:
@@ -25,7 +25,7 @@ st.image(svg_content, width=80)
 st.markdown('<h1 style="font-size:30px;">customa :: customer segmentation via RFM analysis</h1>', unsafe_allow_html=True)
 
 st.text("""
-marketing analytics to profile customers using the recency (R), frequency (F) and monetary (M) analysis
+employing marketing analytics to develop customer profiles based on past consumer behavior
 try out the app with the example .csv file or upload your own file
 """)
 

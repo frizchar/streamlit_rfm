@@ -166,24 +166,23 @@ if uploaded_file:
         st.dataframe(rfmSegmentation)
     # display a chart of unique customers per RFM class in the right column
     with col2:
-        st.subheader("# customers per class:")
-        # Count of unique customers per class
+        st.write("\# customers per RFM class")
+        # count of unique customers per class
         counts = rfmSegmentation['RFMClass'].value_counts().sort_values(ascending=False)
         counts_df = counts.reset_index()
-        counts_df.columns = ['class', 'count']
+        counts_df.columns = ['RFM class', '# customers']
 
-        # create a bar chart
-        top_users = (
-            pd.DataFrame(
-                {
-                    "name": ["John", "Emma", "Kelly", "Brad", "Rachel"],
-                    "views": [300, 200, 250, 400, 50],
-                }
+        # create the bar chart
+        c = alt.Chart(counts_df).mark_bar().encode(
+            x=alt.X('RFM class', sort=None),
+            # y=alt.y("count", axis=alt.Axis(format='.0f'))
+            y=alt.Y('# customers',
+                    axis=alt.Axis(
+                        format='.0f',  # Format to show no decimal places
+                        tickMinStep=1,  # Ensure minimum step between ticks is 1
+                        values=[1, 2, 3]  # Explicitly set ticks to avoid duplicates
+                    )
             )
-            .sort_values(by="views", ascending=False)
-            .reset_index(drop=True)
         )
 
-        # Desired sorting
-        c = alt.Chart(counts_df).mark_bar().encode(x=alt.X("class", sort=None), y="count")
         st.altair_chart(c, use_container_width=True)

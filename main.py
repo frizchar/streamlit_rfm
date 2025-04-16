@@ -22,11 +22,11 @@ st.image(svg_content, width=80)
 
 # Streamlit app setup
 # st.title("customer segmentation::RFM analysis")
-st.markdown('<h1 style="font-size:30px;">customer segmentation :: RFM analysis</h1>', unsafe_allow_html=True)
+st.markdown('<h1 style="font-size:30px;">customa :: customer segmentation via RFM analysis</h1>', unsafe_allow_html=True)
 
 st.text("""
-marketing analytics app about customer segmentation via recency (R), frequency (F) and monetary (M) analysis
-try out the app with the example .csv file
+marketing analytics to profile customers using the recency (R), frequency (F) and monetary (M) analysis
+try out the app with the example .csv file or upload your own file
 """)
 
 # Create an example DataFrame

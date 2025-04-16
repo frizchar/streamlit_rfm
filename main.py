@@ -166,7 +166,7 @@ if uploaded_file:
         st.dataframe(rfmSegmentation)
     # display a chart of unique customers per RFM class in the right column
     with col2:
-        st.write("\# customers per RFM class")
+        st.markdown("<p style='text-align: center;'># customers per RFM class</p>", unsafe_allow_html=True)
         # count of unique customers per class
         counts = rfmSegmentation['RFMClass'].value_counts().sort_values(ascending=False)
         counts_df = counts.reset_index()

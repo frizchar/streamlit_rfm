@@ -27,7 +27,7 @@ st.markdown('<h1 style="font-size:30px;">customa :: customer segmentation via RF
 
 st.text("""
 employing marketing analytics to develop customer profiles based on past consumer behavior
-required column layout of input file: 'customerID', 'orderDate', 'orderID', 'totalAmount'
+required column layout of input file: 'customerID', 'orderDate', 'orderID', 'orderValue'
 try out the app with the example .csv file or upload your own file
 """)
 
@@ -105,13 +105,13 @@ if uploaded_file:
     rfm = df.groupby('customerID').agg({
         'orderDate': lambda x: (snapshot_date - x.max()).days,  # Recency
         'orderID': lambda x: len(x),  # Frequency
-        'totalAmount': lambda x: x.sum()  # Monetary Value
+        'orderValue': lambda x: x.sum()  # Monetary Value
     }).reset_index()
 
     rfm.rename(columns={
         'orderDate': 'Recency',
         'orderID': 'Frequency',
-        'totalAmount': 'MonetaryValue'
+        'orderValue': 'MonetaryValue'
     }, inplace=True)
 
     st.write("RFM metrics:")

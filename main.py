@@ -32,7 +32,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown("""required column layout: `[customerID, orderDate, orderID, orderValue]`""")
+st.markdown("""required file column layout: `[customerID, orderDate, orderID, orderValue]`""")
 
 # Create an example DataFrame
 example_data = pd.DataFrame({

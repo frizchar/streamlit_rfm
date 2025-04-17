@@ -4,7 +4,6 @@ import numpy as np
 import os
 import altair as alt
 
-
 st.set_page_config(
     page_title="customa",  # Title displayed in the browser tab
     layout="wide"
@@ -23,7 +22,8 @@ st.image(svg_content, width=80)
 
 # Streamlit app setup
 # st.title("customer segmentation::RFM analysis")
-st.markdown('<h1 style="font-size:30px;">customa :: customer segmentation via RFM analysis</h1>', unsafe_allow_html=True)
+st.markdown('<h1 style="font-size:30px;">customa :: customer segmentation via RFM analysis</h1>',
+            unsafe_allow_html=True)
 
 st.markdown(
     '<div style="line-height:1.5; margin:0; padding:0;">employing marketing analytics to develop customer '
@@ -56,7 +56,7 @@ st.download_button(
 uploaded_file = st.file_uploader(
     label="upload your CSV file",
     type=["csv"],
-    help = "comma-separated values required",
+    help="comma-separated values required",
     label_visibility="visible"
 )
 
@@ -125,7 +125,7 @@ if uploaded_file:
     st.write("RFM metrics:")
     st.dataframe(rfm)
 
-    quantiles = rfm[['Recency','Frequency','MonetaryValue']].quantile(q=[0.25,0.5,0.75])
+    quantiles = rfm[['Recency', 'Frequency', 'MonetaryValue']].quantile(q=[0.25, 0.5, 0.75])
     # st.write("RFM dtypes:")
     # st.dataframe(rfm.dtypes)
     st.write("RFM quantiles:")
@@ -146,6 +146,7 @@ if uploaded_file:
         else:
             return 4
 
+
     # arguments (x = value, p = monetary_value OR frequency, k = quartiles dict)
     def FMClass(x, p, d):
         if x <= d[p][0.25]:
@@ -161,20 +162,20 @@ if uploaded_file:
     rfmSegmentation['R_Quartile'] = rfmSegmentation['Recency'].apply(RClass, args=('Recency', quantiles,))
     rfmSegmentation['F_Quartile'] = rfmSegmentation['Frequency'].apply(FMClass, args=('Frequency', quantiles,))
     rfmSegmentation['M_Quartile'] = rfmSegmentation['MonetaryValue'].apply(FMClass,
-                                                                            args=('MonetaryValue', quantiles,))
+                                                                           args=('MonetaryValue', quantiles,))
 
     rfmSegmentation['RFMClass'] = rfmSegmentation.R_Quartile.map(str) \
                                   + rfmSegmentation.F_Quartile.map(str) \
                                   + rfmSegmentation.M_Quartile.map(str)
 
-    # create 'All' option in dropdown
+    # create dropdown options
     class_options = ['all'] + list(rfmSegmentation['RFMClass'].unique())
     selected_class = st.multiselect(
         'select customer profile(s):',
         options=class_options,
-        default='all'
+        default=None
     )
-    
+
     # filter logic (filtered dataframe based on selection)
     if 'all' in selected_class or not selected_class:
         filtered_data = rfmSegmentation
@@ -205,7 +206,7 @@ if uploaded_file:
                         tickMinStep=1,  # Ensure minimum step between ticks is 1
                         values=[1, 2, 3]  # Explicitly set ticks to avoid duplicates
                     )
-            )
+                    )
         )
 
         st.altair_chart(c, use_container_width=True)

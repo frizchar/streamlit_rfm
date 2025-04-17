@@ -27,6 +27,7 @@ st.markdown('<h1 style="font-size:30px;">customa :: customer segmentation via RF
 
 st.text("""
 employing marketing analytics to develop customer profiles based on past consumer behavior
+required column layout of input file: 'customerID', 'orderDate', 'orderID', 'totalAmount'
 try out the app with the example .csv file or upload your own file
 """)
 
@@ -52,7 +53,7 @@ st.download_button(
 uploaded_file = st.file_uploader(
     label="upload your CSV file",
     type=["csv"],
-    help = "file requirements:",
+    help = "comma-separated values required",
     label_visibility="visible"
 )
 

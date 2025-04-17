@@ -168,21 +168,26 @@ if uploaded_file:
                                   + rfmSegmentation.M_Quartile.map(str)
 
     # create 'All' option in dropdown
-    categories = ['all'] + list(rfmSegmentation['RFMClass'].unique())
-    selected_category = st.selectbox('select customer profile:', categories)
-
-    # filter logic
-    if selected_category == 'all':
-        filtered_profiles = rfmSegmentation
+    class_options = ['all'] + list(rfmSegmentation['RFMClass'].unique())
+    selected_class = st.multiselect(
+        'select customer profile(s):',
+        options=class_options,
+        default='all'
+    )
+    
+    # filter logic (filtered dataframe based on selection)
+    if 'all' in selected_class or not selected_class:
+        filtered_data = rfmSegmentation
     else:
-        filtered_profiles = rfmSegmentation[rfmSegmentation['RFMClass'] == selected_category]
+        filtered_data = rfmSegmentation[rfmSegmentation['RFMClass'].isin(selected_class)]
+        # filtered_data = rfmSegmentation[rfmSegmentation['RFMClass'] == selected_class]
 
     # create two columns
     col1, col2 = st.columns([2, 1])
     # display RFM class per customer in the left column
     with col1:
         st.write("customer profiles:")
-        st.dataframe(filtered_profiles)
+        st.dataframe(filtered_data)
     # display a chart of unique customers per RFM class in the right column
     with col2:
         st.markdown("<p style='text-align: center;'># customers per RFM class</p>", unsafe_allow_html=True)

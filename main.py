@@ -132,7 +132,7 @@ if uploaded_file:
     rfmSegmentation = rfm
 
 
-    # Arguments (x = value, p = recency, monetary_value, frequency, k = quartiles dict)
+    # arguments (x = value, p = recency, k = quartiles dict)
     def RClass(x, p, d):
         if x <= d[p][0.25]:
             return 1
@@ -143,7 +143,7 @@ if uploaded_file:
         else:
             return 4
 
-    # Arguments (x = value, p = recency, monetary_value, frequency, k = quartiles dict)
+    # arguments (x = value, p = monetary_value OR frequency, k = quartiles dict)
     def FMClass(x, p, d):
         if x <= d[p][0.25]:
             return 4
@@ -164,11 +164,11 @@ if uploaded_file:
                                   + rfmSegmentation.F_Quartile.map(str) \
                                   + rfmSegmentation.M_Quartile.map(str)
 
-    # Create 'All' option in dropdown
+    # create 'All' option in dropdown
     categories = ['all'] + list(rfmSegmentation['RFMClass'].unique())
     selected_category = st.selectbox('select customer profile:', categories)
 
-    # Filter logic
+    # filter logic
     if selected_category == 'all':
         filtered_data = rfmSegmentation
     else:

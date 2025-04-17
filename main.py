@@ -90,11 +90,11 @@ if uploaded_file:
     col1, col2 = st.columns([2, 1])
     # Display uploaded data in the left column
     with col1:
-        st.write("Uploaded Data:")
+        st.write("data:")
         st.dataframe(df, height=220)
     # Create a chart using Plotly and display it in the right column
     with col2:
-        st.write("Metadata:")
+        st.write("metadata:")
         st.json(metadata_dict)
 
     # Calculate snapshot date (max date + 1 day)
@@ -113,7 +113,7 @@ if uploaded_file:
         'totalAmount': 'MonetaryValue'
     }, inplace=True)
 
-    st.write("RFM Metrics:")
+    st.write("RFM metrics:")
     st.dataframe(rfm)
 
     quantiles = rfm[['Recency','Frequency','MonetaryValue']].quantile(q=[0.25,0.5,0.75])
@@ -159,11 +159,11 @@ if uploaded_file:
                                   + rfmSegmentation.M_Quartile.map(str)
 
     # Create 'All' option in dropdown
-    categories = ['All'] + list(rfmSegmentation['RFMClass'].unique())
-    selected_category = st.selectbox('Select a category:', categories)
+    categories = ['all'] + list(rfmSegmentation['RFMClass'].unique())
+    selected_category = st.selectbox('select a category:', categories)
 
     # Filter logic
-    if selected_category == 'All':
+    if selected_category == 'all':
         filtered_data = rfmSegmentation
     else:
         filtered_data = rfmSegmentation[rfmSegmentation['RFMClass'] == selected_category]
@@ -172,7 +172,7 @@ if uploaded_file:
     col1, col2 = st.columns([2, 1])
     # display RFM class per customer in the left column
     with col1:
-        st.write("Segment per customer:")
+        st.write("customer RFM profiles:")
         st.dataframe(filtered_data)
     # display a chart of unique customers per RFM class in the right column
     with col2:
@@ -184,9 +184,8 @@ if uploaded_file:
 
         # create the bar chart
         c = alt.Chart(counts_df).mark_bar().encode(
-            x=alt.X('RFM class', sort=None),
-            # y=alt.y("count", axis=alt.Axis(format='.0f'))
-            y=alt.Y('# customers',
+            y=alt.Y('RFM class', sort=None),
+            x=alt.X('# customers',
                     axis=alt.Axis(
                         format='.0f',  # Format to show no decimal places
                         tickMinStep=1,  # Ensure minimum step between ticks is 1

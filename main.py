@@ -121,7 +121,7 @@ if uploaded_file:
     # st.write("RFM dtypes:")
     # st.dataframe(rfm.dtypes)
     st.write("RFM quantiles:")
-    st.dataframe(quantiles)
+    st.dataframe(quantiles, width=400)
 
     # create the RFM segmentation table
     rfmSegmentation = rfm

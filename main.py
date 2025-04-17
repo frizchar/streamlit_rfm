@@ -25,11 +25,14 @@ st.image(svg_content, width=80)
 # st.title("customer segmentation::RFM analysis")
 st.markdown('<h1 style="font-size:30px;">customa :: customer segmentation via RFM analysis</h1>', unsafe_allow_html=True)
 
-st.markdown("""
-employing marketing analytics to develop customer profiles based on past consumer behavior\n
-try out the app with the example .csv file or upload your own file\n
-required column layout: `[customerID, orderDate, orderID, orderValue]`
-""")
+st.markdown(
+    '<div style="line-height:1.5; margin:0; padding:0;">employing marketing analytics to develop customer '
+    'profiles based on past consumer behavior<br>try out the app with the example .csv file or upload '
+    'your own file</div>',
+    unsafe_allow_html=True
+)
+
+st.markdown("""required column layout: `[customerID, orderDate, orderID, orderValue]`""")
 
 # Create an example DataFrame
 example_data = pd.DataFrame({

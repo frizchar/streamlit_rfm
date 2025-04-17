@@ -160,7 +160,7 @@ if uploaded_file:
 
     # Create 'All' option in dropdown
     categories = ['all'] + list(rfmSegmentation['RFMClass'].unique())
-    selected_category = st.selectbox('select a category:', categories)
+    selected_category = st.selectbox('select customer profile:', categories)
 
     # Filter logic
     if selected_category == 'all':
@@ -172,7 +172,7 @@ if uploaded_file:
     col1, col2 = st.columns([2, 1])
     # display RFM class per customer in the left column
     with col1:
-        st.write("customer RFM profiles:")
+        st.write("customer profiles:")
         st.dataframe(filtered_data)
     # display a chart of unique customers per RFM class in the right column
     with col2:

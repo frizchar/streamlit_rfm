@@ -98,15 +98,20 @@ if uploaded_file:
         st.write("metadata:")
         st.json(metadata_dict)
 
-    # Calculate snapshot date (max date + 1 day)
+    # calculate snapshot date (max date + 1 day)
     snapshot_date = df['orderDate'].max() + pd.Timedelta(days=1)
 
-    # Calculate RFM metrics
+    # calculate RFM metrics
     rfm = df.groupby('customerID').agg({
         'orderDate': lambda x: (snapshot_date - x.max()).days,  # Recency
         'orderID': lambda x: len(x),  # Frequency
         'orderValue': lambda x: x.sum()  # Monetary Value
     }).reset_index()
+
+    # reindex to start from 1
+    rfm.index = np.arange(1, len(rfm) + 1)
+    # Name the index
+    rfm.index.name = '#'
 
     rfm.rename(columns={
         'orderDate': 'Recency',

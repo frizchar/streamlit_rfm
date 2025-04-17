@@ -173,16 +173,16 @@ if uploaded_file:
 
     # filter logic
     if selected_category == 'all':
-        filtered_data = rfmSegmentation
+        filtered_profiles = rfmSegmentation
     else:
-        filtered_data = rfmSegmentation[rfmSegmentation['RFMClass'] == selected_category]
+        filtered_profiles = rfmSegmentation[rfmSegmentation['RFMClass'] == selected_category]
 
     # create two columns
     col1, col2 = st.columns([2, 1])
     # display RFM class per customer in the left column
     with col1:
         st.write("customer profiles:")
-        st.dataframe(filtered_data)
+        st.dataframe(filtered_profiles)
     # display a chart of unique customers per RFM class in the right column
     with col2:
         st.markdown("<p style='text-align: center;'># customers per RFM class</p>", unsafe_allow_html=True)

@@ -26,8 +26,8 @@ st.markdown('<h1 style="font-size:30px;">customa :: customer segmentation via RF
             unsafe_allow_html=True)
 
 st.markdown(
-    '<div style="line-height:1.5; margin:0; padding:0;">employing marketing analytics to develop customer '
-    'profiles based on past consumer behavior<br>try out the app with the example .csv file or upload '
+    '<div style="line-height:1.5; margin:0; padding:0;">employing marketing analytics to develop customer-behavior'
+    ' profiles based on past consumer data<br>try out the app with the example .csv file or upload '
     'your own file</div>',
     unsafe_allow_html=True
 )
@@ -168,8 +168,18 @@ if uploaded_file:
                                   + rfmSegmentation.F_Quartile.map(str) \
                                   + rfmSegmentation.M_Quartile.map(str)
 
-    # create dropdown options
+    # Inject custom CSS to set the width of the multiselect widget
+    st.markdown("""
+        <style>
+        div[data-testid="stMultiSelect"] {
+            width: 400px !important;  /* Set your desired width */
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # create dropdown filter options
     class_options = ['all'] + list(rfmSegmentation['RFMClass'].unique())
+    # create dropdown filter (multi-valued)
     selected_class = st.multiselect(
         'select customer profile(s):',
         options=class_options,

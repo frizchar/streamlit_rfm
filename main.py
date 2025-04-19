@@ -221,7 +221,7 @@ if uploaded_file:
         # filtered_data = rfmSegmentation[rfmSegmentation['RFMClass'] == selected_class]
 
     # create two columns
-    col1, col2 = st.columns([2, 1])
+    col1, col2 = st.columns([3, 1])
     # display RFM class per customer in the left column
     with col1:
         st.write("customer profiles:")

@@ -29,7 +29,8 @@ st.markdown('<h1 style="font-size:30px;">customa :: customer segmentation via RF
 
 st.markdown(
     '<div style="line-height:1.5; margin:0; padding:0;">employing marketing analytics to develop customer-behavior'
-    ' profiles based on past consumer data<br>try out the app with the example .csv file or upload '
+    ' profiles based on past consumer data<br>customa transforms transactional data'
+    ' into consumer profiles and insights<br>try out the app with the example .csv file or upload '
     'your own file</div>',
     unsafe_allow_html=True
 )

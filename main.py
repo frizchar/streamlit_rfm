@@ -232,20 +232,20 @@ if uploaded_file:
         st.dataframe(filtered_data)
     # display a chart of unique customers per RFM class in the right column
     with col2:
-        st.markdown("<p style='text-align: center;'># customers per RFM class</p>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center;'># customers per profile</p>", unsafe_allow_html=True)
         # count of unique customers per class
-        counts = rfmSegmentation['RFMClass'].value_counts().sort_values(ascending=False)
+        counts = rfmSegmentation['profile'].value_counts().sort_values(ascending=False)
         counts_df = counts.reset_index()
-        counts_df.columns = ['RFM class', '# customers']
+        counts_df.columns = ['profile', '# customers']
 
         # create the bar chart
         c = alt.Chart(counts_df).mark_bar().encode(
-            y=alt.Y('RFM class', sort=None),
+            y=alt.Y('profile', sort=None),
             x=alt.X('# customers',
                     axis=alt.Axis(
                         format='.0f',  # Format to show no decimal places
-                        tickMinStep=1,  # Ensure minimum step between ticks is 1
-                        values=[1, 2, 3]  # Explicitly set ticks to avoid duplicates
+                        tickMinStep=1#,  # Ensure minimum step between ticks is 1
+                        # values=[1, 2, 3]  # Explicitly set ticks to avoid duplicates
                     )
                     )
         )

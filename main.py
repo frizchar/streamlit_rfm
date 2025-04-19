@@ -209,7 +209,7 @@ if uploaded_file:
     """, unsafe_allow_html=True)
 
     # create dropdown filter options
-    class_options = ['all'] + list(rfmSegmentation['RFMClass'].unique())
+    class_options = ['all'] + list(rfmSegmentation['profile'].unique())
     # create dropdown filter (multi-valued)
     selected_class = st.multiselect(
         'select customer profile(s):',
@@ -221,7 +221,7 @@ if uploaded_file:
     if 'all' in selected_class or not selected_class:
         filtered_data = rfmSegmentation
     else:
-        filtered_data = rfmSegmentation[rfmSegmentation['RFMClass'].isin(selected_class)]
+        filtered_data = rfmSegmentation[rfmSegmentation['profile'].isin(selected_class)]
         # filtered_data = rfmSegmentation[rfmSegmentation['RFMClass'] == selected_class]
 
     # create two columns

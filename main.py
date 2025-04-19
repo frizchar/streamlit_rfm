@@ -24,8 +24,12 @@ st.image(svg_content, width=80)
 
 # Streamlit app setup
 # st.title("customer segmentation::RFM analysis")
-st.markdown('<h1 style="font-size:30px;">customa :: customer segmentation via RFM analysis</h1>',
-            unsafe_allow_html=True)
+st.markdown(
+    "<h1 style='font-size:30px;'>"
+    "<span style='color:#E67300;'>customa</span> :: customer segmentation via RFM analysis"
+    "</h1>",
+    unsafe_allow_html=True
+)
 
 st.markdown(
     '<div style="line-height:1.5; margin:0; padding:0;">employing marketing analytics to develop customer-behavior'

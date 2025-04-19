@@ -3,6 +3,8 @@ import streamlit as st
 import numpy as np
 import os
 import altair as alt
+import tomllib
+
 
 st.set_page_config(
     page_title="customa",  # Title displayed in the browser tab
@@ -34,12 +36,10 @@ st.markdown(
 
 st.markdown("""required file column layout: `[customerID, orderDate, orderID, orderValue]`""")
 
-# Create an example DataFrame
-example_data = pd.DataFrame({
-    "Name": ["Alice", "Bob", "Charlie"],
-    "Age": [25, 30, 35],
-    "City": ["New York", "Los Angeles", "Chicago"]
-})
+with open("example_data.toml", "rb") as f:
+    example_data_dict = tomllib.load(f)
+
+example_data = pd.DataFrame(example_data_dict)
 
 # Convert the DataFrame to a CSV string
 example_csv = example_data.to_csv(index=False).encode('utf-8')
@@ -56,7 +56,7 @@ st.download_button(
 uploaded_file = st.file_uploader(
     label="upload your CSV file",
     type=["csv"],
-    help="comma-separated values required",
+    help="comma-separated values required, orderDate format: 'dd/mm/yyyy'",
     label_visibility="visible"
 )
 

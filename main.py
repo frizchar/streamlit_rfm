@@ -169,6 +169,32 @@ if uploaded_file:
                                   + rfmSegmentation.F_Quartile.map(str) \
                                   + rfmSegmentation.M_Quartile.map(str)
 
+    # Define mapping logic for profiles
+    def rfm_segment(rfm_code):
+        # Extract R, F, M as integers
+        r, f, m = map(int, list(rfm_code))
+
+        # Define rules based on common RFM segmentation logic
+        if r == 1 and f == 1 and m == 1:
+            return 'champion'
+        elif r == 1 and f <= 2 and m <= 2:
+            return 'loyal_customer'
+        elif r <= 2 and f <= 3 and m <= 3:
+            return 'potential_loyalist'
+        elif r == 3 and f == 3 and m == 3:
+            return 'needs_attention'
+        elif r == 4 and f == 4 and m == 4:
+            return 'at_risk'
+        elif r >= 3 and f >= 3:
+            return 'about_to_sleep'
+        elif r == 4:
+            return 'hibernating'
+        else:
+            return 'others'
+
+    # Add column B using map
+    rfmSegmentation['profile'] = rfmSegmentation['RFMClass'].apply(rfm_segment)
+
     # Inject custom CSS to set the width of the multiselect widget
     st.markdown("""
         <style>

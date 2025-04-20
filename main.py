@@ -7,7 +7,8 @@ import tomllib
 
 
 st.set_page_config(
-    page_title="customa",  # Title displayed in the browser tab
+    page_title="castoma",  # Title displayed in the browser tab
+    page_icon="favicon.ico",
     layout="wide"
 )
 
@@ -26,7 +27,7 @@ st.image(svg_content, width=80)
 # st.title("customer segmentation::RFM analysis")
 st.markdown(
     "<h1 style='font-size:30px;'>"
-    "<span style='color:#E67300;'>customa</span> :: customer segmentation via RFM analysis"
+    "<span style='color:#E67300;'>castoma</span> :: customer segmentation via RFM analysis"
     "</h1>",
     unsafe_allow_html=True
 )
@@ -250,4 +251,7 @@ if uploaded_file:
                     )
         )
 
+        st.altair_chart(c, use_container_width=True)
+
+        st.markdown("<p style='text-align: center;'># customers per profile</p>", unsafe_allow_html=True)
         st.altair_chart(c, use_container_width=True)

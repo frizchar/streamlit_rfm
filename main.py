@@ -253,5 +253,15 @@ if uploaded_file:
 
         st.altair_chart(c, use_container_width=True)
 
-        st.markdown("<p style='text-align: center;'># customers per profile</p>", unsafe_allow_html=True)
-        st.altair_chart(c, use_container_width=True)
+        st.markdown("<p style='text-align: center;'>average recency per profile</p>", unsafe_allow_html=True)
+        # Calculate average recency per segment
+        avg_r = rfmSegmentation.groupby('profile')['Recency'].mean()
+        avg_r_df = avg_r.reset_index()
+        avg_r_df.columns = ['profile','avg_r']
+
+        # create the bar chart
+        c2 = alt.Chart(avg_r_df).mark_bar().encode(
+            x='avg_r',
+            y='profile'
+        )
+        st.altair_chart(c2, use_container_width=True)

@@ -200,6 +200,32 @@ if uploaded_file:
     # Add column B using map
     rfmSegmentation['profile'] = rfmSegmentation['RFMClass'].apply(rfm_segment)
 
+    # Section separator with title
+    st.markdown(
+        """
+        <h2 style='
+            text-align: center; 
+            font-weight: bold; 
+            margin-bottom: 1px;  /* reduce space below title */
+            margin-top: 0;       /* remove space above title */
+        '>
+            profile analysis
+        </h2>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        """
+        <hr style='
+            border: 3px solid #bbb; 
+            width: 100%; 
+            margin-top: 0;        /* remove space above line */
+            margin-bottom: 16px;  /* optional space below line */
+        '>
+        """,
+        unsafe_allow_html=True
+    )
+
     # Inject custom CSS to set the width of the multiselect widget
     st.markdown("""
         <style>
@@ -245,7 +271,8 @@ if uploaded_file:
             x=alt.X('# customers',
                     axis=alt.Axis(
                         format='.0f',  # Format to show no decimal places
-                        tickMinStep=1#,  # Ensure minimum step between ticks is 1
+                        tickMinStep=1,  # Ensure minimum step between ticks is 1
+                        title=None
                         # values=[1, 2, 3]  # Explicitly set ticks to avoid duplicates
                     )
                     )
@@ -261,7 +288,9 @@ if uploaded_file:
 
         # create the bar chart
         c2 = alt.Chart(avg_r_df).mark_bar().encode(
-            x='avg_r',
+            x=alt.X('avg_r',
+                    axis=alt.Axis(title=None)
+                    ),
             y='profile'
         )
         st.altair_chart(c2, use_container_width=True)

@@ -27,7 +27,7 @@ st.image(svg_content, width=80)
 # st.title("customer segmentation::RFM analysis")
 st.markdown(
     "<h1 style='font-size:30px;'>"
-    "<span style='color:#E67300;'>castoma</span> :: transform customer transactions into consumer insights"
+    "<span style='color:#E67300;'>castoma</span> :: transform transactional data into consumer insights"
     "</h1>",
     unsafe_allow_html=True
 )
@@ -77,6 +77,33 @@ css = '''
 st.markdown(css, unsafe_allow_html=True)
 
 if uploaded_file:
+
+    # section title with line separator
+    st.markdown(
+        """
+        <h2 style='
+            text-align: center; 
+            font-weight: bold; 
+            margin-bottom: 1px;  /* reduce space below title */
+            margin-top: 0;       /* remove space above title */
+        '>
+            data
+        </h2>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        """
+        <hr style='
+            border: 3px solid #bbb; 
+            width: 100%; 
+            margin-top: 0;        /* remove space above line */
+            margin-bottom: 16px;  /* optional space below line */
+        '>
+        """,
+        unsafe_allow_html=True
+    )
+
     # Load the data
     df = pd.read_csv(uploaded_file, sep=",")
 
@@ -106,6 +133,32 @@ if uploaded_file:
     with col2:
         st.write("metadata:")
         st.json(metadata_dict)
+
+    # section title with line separator
+    st.markdown(
+        """
+        <h2 style='
+            text-align: center; 
+            font-weight: bold; 
+            margin-bottom: 1px;  /* reduce space below title */
+            margin-top: 0;       /* remove space above title */
+        '>
+            RFM analysis
+        </h2>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        """
+        <hr style='
+            border: 3px solid #bbb; 
+            width: 100%; 
+            margin-top: 0;        /* remove space above line */
+            margin-bottom: 16px;  /* optional space below line */
+        '>
+        """,
+        unsafe_allow_html=True
+    )
 
     # calculate snapshot date (max date + 1 day)
     snapshot_date = df['orderDate'].max() + pd.Timedelta(days=1)

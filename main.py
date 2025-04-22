@@ -14,7 +14,7 @@ st.set_page_config(
 
 # insert logo, source: https://www.svgrepo.com/
 working_directory = os.getcwd()
-relative_path = "customa2.svg"
+relative_path = "castoma2.svg"
 full_path = os.path.join(working_directory, relative_path)
 
 with open(full_path, "r") as f:

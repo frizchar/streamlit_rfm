@@ -43,18 +43,18 @@ st.markdown(
 st.markdown("""required file column layout: `[customerID, orderDate, orderID, orderValue]`""")
 
 with open("example_data.toml", "rb") as f:
-    example_data_dict = tomllib.load(f)
+    sample_data_dict = tomllib.load(f)
 
-example_data = pd.DataFrame(example_data_dict)
+sample_data = pd.DataFrame(sample_data_dict)
 
 # Convert the DataFrame to a CSV string
-example_csv = example_data.to_csv(index=False).encode('utf-8')
+sample_csv = sample_data.to_csv(index=False).encode('utf-8')
 
 # Add a download button for the example CSV file
 st.download_button(
     label="download sample .csv file",
-    data=example_csv,
-    file_name="example.csv",
+    data=sample_csv,
+    file_name="sample.csv",
     mime="text/csv"
 )
 

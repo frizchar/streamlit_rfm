@@ -35,7 +35,7 @@ st.markdown(
 st.markdown(
     '<div style="line-height:1.5; margin:0; padding:0;">employing marketing analytics to develop customer-behavior'
     ' profiles based on past consumer data<br>castoma implements customer segmentation'
-    ' via RFM analysis<br>try out the app with the example .csv file or upload '
+    ' via RFM analysis<br>try out the app with the sample .csv file or upload '
     'your own file</div>',
     unsafe_allow_html=True
 )
@@ -52,7 +52,7 @@ example_csv = example_data.to_csv(index=False).encode('utf-8')
 
 # Add a download button for the example CSV file
 st.download_button(
-    label="download example .csv file",
+    label="download sample .csv file",
     data=example_csv,
     file_name="example.csv",
     mime="text/csv"

@@ -206,7 +206,7 @@ def run_app(data: pd.DataFrame) -> None:
         """,
         unsafe_allow_html=True
     )
-    """
+    
     # Inject custom CSS to set the width of the multiselect widget
     st.markdown("""
         <style>
@@ -215,7 +215,7 @@ def run_app(data: pd.DataFrame) -> None:
         }
         </style>
     """, unsafe_allow_html=True)
-
+    """
     # create dropdown filter options
     class_options = ['all'] + list(rfmSegmentation['profile'].unique())
     # create dropdown filter (multi-valued)

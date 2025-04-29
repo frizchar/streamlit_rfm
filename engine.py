@@ -206,7 +206,7 @@ def run_app(data: pd.DataFrame) -> None:
         """,
         unsafe_allow_html=True
     )
-
+    """
     # Inject custom CSS to set the width of the multiselect widget
     st.markdown("""
         <style>
@@ -231,13 +231,13 @@ def run_app(data: pd.DataFrame) -> None:
     else:
         filtered_data = rfmSegmentation[rfmSegmentation['profile'].isin(selected_class)]
         # filtered_data = rfmSegmentation[rfmSegmentation['RFMClass'] == selected_class]
-
+    """
     # create two columns
     col1, col2 = st.columns([3, 1])
     # display RFM class per customer in the left column
     with col1:
         st.write("customer profiles:")
-        st.dataframe(filtered_data)
+        st.dataframe(rfmSegmentation)
     # display a chart of unique customers per RFM class in the right column
     with col2:
         st.markdown("<p style='text-align: center;'># customers per profile</p>", unsafe_allow_html=True)

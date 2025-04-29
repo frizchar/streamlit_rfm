@@ -5,7 +5,6 @@ import altair as alt
 
 
 def run_app(data: pd.DataFrame) -> None:
-
     # section title with line separator
     st.markdown(
         """
@@ -121,7 +120,6 @@ def run_app(data: pd.DataFrame) -> None:
     # create the RFM segmentation table
     rfmSegmentation = rfm
 
-
     # arguments (x = value, p = recency, k = quartiles dict)
     def RClass(x, p, d):
         if x <= d[p][0.25]:
@@ -133,7 +131,6 @@ def run_app(data: pd.DataFrame) -> None:
         else:
             return 4
 
-
     # arguments (x = value, p = monetary_value OR frequency, k = quartiles dict)
     def FMClass(x, p, d):
         if x <= d[p][0.25]:
@@ -144,7 +141,6 @@ def run_app(data: pd.DataFrame) -> None:
             return 2
         else:
             return 1
-
 
     rfmSegmentation['R_Quartile'] = rfmSegmentation['Recency'].apply(RClass, args=('Recency', quantiles,))
     rfmSegmentation['F_Quartile'] = rfmSegmentation['Frequency'].apply(FMClass, args=('Frequency', quantiles,))
@@ -206,7 +202,7 @@ def run_app(data: pd.DataFrame) -> None:
         """,
         unsafe_allow_html=True
     )
-    
+
     # Inject custom CSS to set the width of the multiselect widget
     st.markdown("""
         <style>
@@ -256,23 +252,33 @@ def run_app(data: pd.DataFrame) -> None:
                         title=None
                         # values=[1, 2, 3]  # Explicitly set ticks to avoid duplicates
                     )
-                    )
+                    ),
+        color=alt.Color(
+        '# customers',
+        scale=alt.Scale(scheme='blues'),  # Choose a color scheme for fading effect
+        legend=None
+        )
         )
 
         st.altair_chart(c, use_container_width=True)
 
         st.markdown("<p style='text-align: center;'>average recency per profile</p>", unsafe_allow_html=True)
         # Calculate average recency per segment
-        avg_r = rfmSegmentation.groupby('profile')['Recency'].mean()
+        avg_r = rfmSegmentation.groupby('profile')['Recency'].mean().sort_values(ascending=True)
         avg_r_df = avg_r.reset_index()
-        avg_r_df.columns = ['profile','avg_r']
+        avg_r_df.columns = ['profile', 'avg_r']
 
         # create the bar chart
         c2 = alt.Chart(avg_r_df).mark_bar().encode(
+            y=alt.Y('profile', sort=None),
             x=alt.X('avg_r',
                     axis=alt.Axis(title=None)
                     ),
-            y='profile'
+            color = alt.Color(
+            'avg_r',
+            scale=alt.Scale(scheme='reds', reverse=True),  # Choose a color scheme for fading effect
+            legend=None
+        )
         )
         st.altair_chart(c2, use_container_width=True)
 

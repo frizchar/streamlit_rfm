@@ -87,6 +87,18 @@ def run_app(data: pd.DataFrame) -> None:
         unsafe_allow_html=True
     )
 
+    st.markdown(
+        'RFM analysis is a customer segmentation technique that helps businesses identify and rank their '
+        'most valuable customers by examining three key behavioral metrics: Recency, Frequency, and Monetary '
+        'value. Recency (R) measures how recently a customer made their last purchase, with more recent '
+        'activity indicating higher engagement. Frequency (F) tracks how often a customer makes purchases '
+        'within a specific period, highlighting loyal and repeat buyers. Monetary value (M) assesses the '
+        'total amount a customer has spent, identifying those who contribute most to revenue. Each customer '
+        'receives a score from 1 to 4 for each metric, derived from historical transaction '
+        'data-recent purchases and higher spend or frequency yield higher scores. The combined RFM '
+        'scores allow businesses to segment customers for targeted marketing and retention strategies.'
+    )
+
     # calculate snapshot date (max date + 1 day)
     snapshot_date = df['orderDate'].max() + pd.Timedelta(days=1)
 
@@ -282,4 +294,4 @@ def run_app(data: pd.DataFrame) -> None:
         )
         st.altair_chart(c2, use_container_width=True)
 
-        return
+    return

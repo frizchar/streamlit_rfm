@@ -248,7 +248,7 @@ def run_app(data: pd.DataFrame) -> None:
         st.dataframe(rfmSegmentation)
     # display a chart of unique customers per RFM class in the right column
     with col2:
-        st.markdown("<p style='text-align: center;'># customers per profile</p>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center;'># of customers per profile</p>", unsafe_allow_html=True)
         # count of unique customers per class
         counts = rfmSegmentation['profile'].value_counts().sort_values(ascending=False)
         counts_df = counts.reset_index()
@@ -286,15 +286,15 @@ def run_app(data: pd.DataFrame) -> None:
 
         st.altair_chart(final_chart, use_container_width=False)
 
-        st.markdown("<p style='text-align: center;'>RFM heatmap: mean Monetary Value</p>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center;'>heatmap of mean Monetary Value</p>", unsafe_allow_html=True)
         # Pivot the data to get the mean monetary value for each R-F combination
         rfm_pivot = rfmSegmentation.groupby(['R_Quartile', 'F_Quartile'])['MonetaryValue'].mean().round(0).reset_index()
 
         # Create the Altair heatmap
         heatmap = alt.Chart(rfm_pivot).mark_rect().encode(
-            x=alt.X('F_Quartile:O', title='Frequency Score'),
-            y=alt.Y('R_Quartile:O', title='Recency Score'),
-            color=alt.Color('MonetaryValue:Q', title='mean MonVal', scale=alt.Scale(scheme='blues')),
+            x=alt.X('F_Quartile:O', title='Frequency score'),
+            y=alt.Y('R_Quartile:O', title='Recency score'),
+            color=alt.Color('MonetaryValue:Q', title='mean Mon.Value', scale=alt.Scale(scheme='blues')),
             tooltip=['R_Quartile', 'F_Quartile', 'MonetaryValue']
         ).properties(
             width=900,
@@ -310,7 +310,7 @@ def run_app(data: pd.DataFrame) -> None:
     with col1:
         st.markdown("<p style='text-align: center;'>average recency per profile</p>", unsafe_allow_html=True)
         # Calculate average recency per segment
-        avg_r = rfmSegmentation.groupby('profile')['Recency'].mean().sort_values(ascending=True)
+        avg_r = rfmSegmentation.groupby('profile')['Recency'].mean().round(0).sort_values(ascending=True)
         avg_r_df = avg_r.reset_index()
         avg_r_df.columns = ['profile', 'avg_r']
 
@@ -331,7 +331,7 @@ def run_app(data: pd.DataFrame) -> None:
     with col2:
         st.markdown("<p style='text-align: center;'>average frequency per profile</p>", unsafe_allow_html=True)
         # Calculate average recency per segment
-        avg_f = rfmSegmentation.groupby('profile')['Frequency'].mean().sort_values(ascending=False)
+        avg_f = rfmSegmentation.groupby('profile')['Frequency'].mean().round(0).sort_values(ascending=False)
         avg_f_df = avg_f.reset_index()
         avg_f_df.columns = ['profile', 'avg_f']
 
@@ -346,7 +346,7 @@ def run_app(data: pd.DataFrame) -> None:
     with col3:
         st.markdown("<p style='text-align: center;'>average monetary value per profile</p>", unsafe_allow_html=True)
         # Calculate average recency per segment
-        avg_m = rfmSegmentation.groupby('profile')['MonetaryValue'].mean().sort_values(ascending=False)
+        avg_m = rfmSegmentation.groupby('profile')['MonetaryValue'].mean().round(0).sort_values(ascending=False)
         avg_m_df = avg_m.reset_index()
         avg_m_df.columns = ['profile', 'avg_m']
 

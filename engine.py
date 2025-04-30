@@ -254,26 +254,60 @@ def run_app(data: pd.DataFrame) -> None:
         counts_df = counts.reset_index()
         counts_df.columns = ['profile', '# customers']
 
-        # create the bar chart
-        c = alt.Chart(counts_df).mark_bar().encode(
-            y=alt.Y('profile', sort=None),
-            x=alt.X('# customers',
-                    axis=alt.Axis(
-                        format='.0f',  # Format to show no decimal places
-                        tickMinStep=1,  # Ensure minimum step between ticks is 1
-                        title=None
-                        # values=[1, 2, 3]  # Explicitly set ticks to avoid duplicates
-                    )
-                    ),
-        color=alt.Color(
-        '# customers',
-        scale=alt.Scale(scheme='blues'),  # Choose a color scheme for fading effect
-        legend=None
-        )
+        # Calculate the angle for the pie chart
+        # counts_df['angle'] = counts_df['# customers'] / counts_df['# customers'].sum() * 2 * 3.14159
+
+        # Pie chart without legend
+        pie = alt.Chart(counts_df).mark_arc(innerRadius=50).encode(
+            theta=alt.Theta(field="# customers", type="quantitative"),
+            color=alt.Color(field="profile", type="nominal", legend=None),  # Hide legend here
+            tooltip=['profile', '# customers']
+        ).properties(
+            width=150,
+            height=150
         )
 
-        st.altair_chart(c, use_container_width=True)
+        # Create a legend using a dummy chart with legend only
+        legend_chart = alt.Chart(counts_df).mark_point().encode(
+            y=alt.Y('profile:N', axis=alt.Axis(title=None, labels=True, ticks=False)),
+            color=alt.Color('profile:N', legend=alt.Legend(orient='right', title='Profile'))
+        ).properties(
+            width=100,
+            height=100
+        )
 
+        # Concatenate pie and legend horizontally
+        final_chart = alt.hconcat(
+            pie,
+            legend_chart
+        ).configure_view(
+            strokeWidth=0
+        )
+
+        st.altair_chart(final_chart, use_container_width=False)
+
+        st.markdown("<p style='text-align: center;'>RFM heatmap: mean Monetary Value</p>", unsafe_allow_html=True)
+        # Pivot the data to get the mean monetary value for each R-F combination
+        rfm_pivot = rfmSegmentation.groupby(['R_Quartile', 'F_Quartile'])['MonetaryValue'].mean().round(0).reset_index()
+
+        # Create the Altair heatmap
+        heatmap = alt.Chart(rfm_pivot).mark_rect().encode(
+            x=alt.X('F_Quartile:O', title='Frequency Score'),
+            y=alt.Y('R_Quartile:O', title='Recency Score'),
+            color=alt.Color('MonetaryValue:Q', title='mean MonVal', scale=alt.Scale(scheme='blues')),
+            tooltip=['R_Quartile', 'F_Quartile', 'MonetaryValue']
+        ).properties(
+            width=900,
+            height=180  #, title='RFM Heatmap: Mean Monetary Value by Recency and Frequency'
+        )
+
+        # Display in Streamlit
+        st.altair_chart(heatmap, use_container_width=True)
+
+    # create two columns
+    col1, col2, col3 = st.columns([1, 1, 1])
+    # display RFM class per customer in the left column
+    with col1:
         st.markdown("<p style='text-align: center;'>average recency per profile</p>", unsafe_allow_html=True)
         # Calculate average recency per segment
         avg_r = rfmSegmentation.groupby('profile')['Recency'].mean().sort_values(ascending=True)
@@ -281,17 +315,47 @@ def run_app(data: pd.DataFrame) -> None:
         avg_r_df.columns = ['profile', 'avg_r']
 
         # create the bar chart
-        c2 = alt.Chart(avg_r_df).mark_bar().encode(
+        c2r = alt.Chart(avg_r_df).mark_bar().encode(
             y=alt.Y('profile', sort=None),
             x=alt.X('avg_r',
                     axis=alt.Axis(title=None)
                     ),
-            color = alt.Color(
-            'avg_r',
-            scale=alt.Scale(scheme='reds', reverse=True),  # Choose a color scheme for fading effect
-            legend=None
+            color=alt.Color(
+                'avg_r',
+                scale=alt.Scale(scheme='reds', reverse=True),  # Choose a color scheme for fading effect
+                legend=None
+            )
         )
+        st.altair_chart(c2r, use_container_width=True)
+
+    with col2:
+        st.markdown("<p style='text-align: center;'>average frequency per profile</p>", unsafe_allow_html=True)
+        # Calculate average recency per segment
+        avg_f = rfmSegmentation.groupby('profile')['Frequency'].mean().sort_values(ascending=False)
+        avg_f_df = avg_f.reset_index()
+        avg_f_df.columns = ['profile', 'avg_f']
+
+        # create the bar chart
+        c2f = alt.Chart(avg_f_df).mark_bar().encode(
+            y=alt.Y('profile', sort=None, axis=alt.Axis(title=None)),
+            x=alt.X('avg_f', axis=alt.Axis(title=None)),
+            color=alt.Color('avg_f', scale=alt.Scale(scheme='purples'), legend=None)
         )
-        st.altair_chart(c2, use_container_width=True)
+        st.altair_chart(c2f, use_container_width=True)
+
+    with col3:
+        st.markdown("<p style='text-align: center;'>average monetary value per profile</p>", unsafe_allow_html=True)
+        # Calculate average recency per segment
+        avg_m = rfmSegmentation.groupby('profile')['MonetaryValue'].mean().sort_values(ascending=False)
+        avg_m_df = avg_m.reset_index()
+        avg_m_df.columns = ['profile', 'avg_m']
+
+        # create the bar chart
+        c2m = alt.Chart(avg_m_df).mark_bar().encode(
+            y=alt.Y('profile', sort=None, axis=alt.Axis(title=None)),
+            x=alt.X('avg_m', axis=alt.Axis(title=None)),
+            color=alt.Color('avg_m', scale=alt.Scale(scheme='greens'), legend=None)
+        )
+        st.altair_chart(c2m, use_container_width=True)
 
     return

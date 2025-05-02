@@ -148,12 +148,10 @@ def run_app(data: pd.DataFrame) -> None:
 
     st.markdown(
         '<div style="line-height:1.5; margin:0; padding:0;">Each customer '
-        'receives a score from 1 to 4 for each metric, derived from historical transaction '
-        'data-recent purchases and higher spend or frequency yield higher scores. '
-        '<br>The scores are calculated as quartiles of the distribution of each variable (R,F and M).'
-        '<br>The combined RFM '
-        'scores allow businesses to profile (segment) customers for targeted marketing and retention '
-        'strategies.<br><div>',
+        'gets scored from 1 (highest score) to 4 (least score) for each metric [R,F and M]. '
+        '<br>The scores are calculated as quartiles of the distribution of each metric.'
+        '<br>The combined RFM scores allow businesses to profile (segment) customers for targeted '
+        'marketing and retention strategies.<br> <br><div>',
         unsafe_allow_html=True
     )
 

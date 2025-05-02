@@ -93,10 +93,7 @@ def run_app(data: pd.DataFrame) -> None:
         'value. Recency (R) measures how recently a customer made their last purchase, with more recent '
         'activity indicating higher engagement. Frequency (F) tracks how often a customer makes purchases '
         'within a specific period, highlighting loyal and repeat buyers. Monetary value (M) assesses the '
-        'total amount a customer has spent, identifying those who contribute most to revenue. Each customer '
-        'receives a score from 1 to 4 for each metric, derived from historical transaction '
-        'data-recent purchases and higher spend or frequency yield higher scores. The combined RFM '
-        'scores allow businesses to segment customers for targeted marketing and retention strategies.'
+        'total amount a customer has spent, identifying those who contribute most to revenue.'
     )
 
     # calculate snapshot date (max date + 1 day)
@@ -122,6 +119,43 @@ def run_app(data: pd.DataFrame) -> None:
 
     st.write("RFM metrics:")
     st.dataframe(rfm)
+
+    # Section separator with title
+    st.markdown(
+        """
+        <h2 style='
+            text-align: center; 
+            font-weight: bold; 
+            margin-bottom: 1px;  /* reduce space below title */
+            margin-top: 0;       /* remove space above title */
+        '>
+            profile analysis
+        </h2>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        """
+        <hr style='
+            border: 3px solid #bbb; 
+            width: 100%; 
+            margin-top: 0;        /* remove space above line */
+            margin-bottom: 16px;  /* optional space below line */
+        '>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        '<div style="line-height:1.5; margin:0; padding:0;">Each customer '
+        'receives a score from 1 to 4 for each metric, derived from historical transaction '
+        'data-recent purchases and higher spend or frequency yield higher scores. '
+        '<br>The scores are calculated as quartiles of the distribution of each variable (R,F and M).'
+        '<br>The combined RFM '
+        'scores allow businesses to profile (segment) customers for targeted marketing and retention '
+        'strategies.<br><div>',
+        unsafe_allow_html=True
+    )
 
     quantiles = rfm[['Recency', 'Frequency', 'MonetaryValue']].quantile(q=[0.25, 0.5, 0.75])
     # st.write("RFM dtypes:")
@@ -188,32 +222,6 @@ def run_app(data: pd.DataFrame) -> None:
 
     # Add column B using map
     rfmSegmentation['profile'] = rfmSegmentation['RFMClass'].apply(rfm_segment)
-
-    # Section separator with title
-    st.markdown(
-        """
-        <h2 style='
-            text-align: center; 
-            font-weight: bold; 
-            margin-bottom: 1px;  /* reduce space below title */
-            margin-top: 0;       /* remove space above title */
-        '>
-            profile analysis
-        </h2>
-        """,
-        unsafe_allow_html=True
-    )
-    st.markdown(
-        """
-        <hr style='
-            border: 3px solid #bbb; 
-            width: 100%; 
-            margin-top: 0;        /* remove space above line */
-            margin-bottom: 16px;  /* optional space below line */
-        '>
-        """,
-        unsafe_allow_html=True
-    )
 
     # Inject custom CSS to set the width of the multiselect widget
     st.markdown("""
@@ -308,54 +316,48 @@ def run_app(data: pd.DataFrame) -> None:
     col1, col2, col3 = st.columns([1, 1, 1])
     # display RFM class per customer in the left column
     with col1:
-        st.markdown("<p style='text-align: center;'>average recency per profile</p>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center;'>mean recency per profile</p>", unsafe_allow_html=True)
         # Calculate average recency per segment
         avg_r = rfmSegmentation.groupby('profile')['Recency'].mean().round(0).sort_values(ascending=True)
         avg_r_df = avg_r.reset_index()
         avg_r_df.columns = ['profile', 'avg_r']
 
         # create the bar chart
-        c2r = alt.Chart(avg_r_df).mark_bar().encode(
+        c2r = alt.Chart(avg_r_df).mark_bar(size=20).encode(
             y=alt.Y('profile', sort=None),
-            x=alt.X('avg_r',
-                    axis=alt.Axis(title=None)
-                    ),
-            color=alt.Color(
-                'avg_r',
-                scale=alt.Scale(scheme='reds', reverse=True),  # Choose a color scheme for fading effect
-                legend=None
-            )
-        )
+            x=alt.X('avg_r', axis=alt.Axis(title=None)),
+            color=alt.Color('avg_r', scale=alt.Scale(scheme='reds', reverse=True), legend=None)
+        ).properties(height=200)
         st.altair_chart(c2r, use_container_width=True)
 
     with col2:
-        st.markdown("<p style='text-align: center;'>average frequency per profile</p>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center;'>mean frequency per profile</p>", unsafe_allow_html=True)
         # Calculate average recency per segment
         avg_f = rfmSegmentation.groupby('profile')['Frequency'].mean().round(0).sort_values(ascending=False)
         avg_f_df = avg_f.reset_index()
         avg_f_df.columns = ['profile', 'avg_f']
 
         # create the bar chart
-        c2f = alt.Chart(avg_f_df).mark_bar().encode(
+        c2f = alt.Chart(avg_f_df).mark_bar(size=20).encode(
             y=alt.Y('profile', sort=None, axis=alt.Axis(title=None)),
             x=alt.X('avg_f', axis=alt.Axis(title=None)),
             color=alt.Color('avg_f', scale=alt.Scale(scheme='purples'), legend=None)
-        )
+        ).properties(height=200)
         st.altair_chart(c2f, use_container_width=True)
 
     with col3:
-        st.markdown("<p style='text-align: center;'>average monetary value per profile</p>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center;'>mean monetary value per profile</p>", unsafe_allow_html=True)
         # Calculate average recency per segment
         avg_m = rfmSegmentation.groupby('profile')['MonetaryValue'].mean().round(0).sort_values(ascending=False)
         avg_m_df = avg_m.reset_index()
         avg_m_df.columns = ['profile', 'avg_m']
 
         # create the bar chart
-        c2m = alt.Chart(avg_m_df).mark_bar().encode(
+        c2m = alt.Chart(avg_m_df).mark_bar(size=20).encode(
             y=alt.Y('profile', sort=None, axis=alt.Axis(title=None)),
             x=alt.X('avg_m', axis=alt.Axis(title=None)),
             color=alt.Color('avg_m', scale=alt.Scale(scheme='greens'), legend=None)
-        )
+        ).properties(height=200)
         st.altair_chart(c2m, use_container_width=True)
 
     return

@@ -1,7 +1,7 @@
 # streamlit_rfm
 ### Overview
 Streamlit app on customer analytics.
-The app is hosted [here](https://castoma.streamlit.app/)
+The app is hosted [here](https://castoma.streamlit.app/).
 
 
 ### Dependencies

@@ -1,2 +1,2 @@
 # streamlit_rfm
-streamlit app on RFM analysis
+Streamlit app on customer analytics.

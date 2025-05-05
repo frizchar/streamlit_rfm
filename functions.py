@@ -21,6 +21,7 @@ def FMClass(x, p, d):
     else:
         return 1
 
+
 # define mapping logic for profiles
 def rfm_segment(rfm_code):
     # Extract R, F, M as integers

@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import numpy as np
 import altair as alt
+import functions as func
 
 
 def run_app(data: pd.DataFrame) -> None:
@@ -164,62 +165,18 @@ def run_app(data: pd.DataFrame) -> None:
     # create the RFM segmentation table
     rfmSegmentation = rfm
 
-    # arguments (x = value, p = recency, k = quartiles dict)
-    def RClass(x, p, d):
-        if x <= d[p][0.25]:
-            return 1
-        elif x <= d[p][0.50]:
-            return 2
-        elif x <= d[p][0.75]:
-            return 3
-        else:
-            return 4
 
-    # arguments (x = value, p = monetary_value OR frequency, k = quartiles dict)
-    def FMClass(x, p, d):
-        if x <= d[p][0.25]:
-            return 4
-        elif x <= d[p][0.50]:
-            return 3
-        elif x <= d[p][0.75]:
-            return 2
-        else:
-            return 1
-
-    rfmSegmentation['R_Quartile'] = rfmSegmentation['Recency'].apply(RClass, args=('Recency', quantiles,))
-    rfmSegmentation['F_Quartile'] = rfmSegmentation['Frequency'].apply(FMClass, args=('Frequency', quantiles,))
-    rfmSegmentation['M_Quartile'] = rfmSegmentation['MonetaryValue'].apply(FMClass,
+    rfmSegmentation['R_Quartile'] = rfmSegmentation['Recency'].apply(func.RClass, args=('Recency', quantiles,))
+    rfmSegmentation['F_Quartile'] = rfmSegmentation['Frequency'].apply(func.FMClass, args=('Frequency', quantiles,))
+    rfmSegmentation['M_Quartile'] = rfmSegmentation['MonetaryValue'].apply(func.FMClass,
                                                                            args=('MonetaryValue', quantiles,))
 
     rfmSegmentation['RFMClass'] = rfmSegmentation.R_Quartile.map(str) \
                                   + rfmSegmentation.F_Quartile.map(str) \
                                   + rfmSegmentation.M_Quartile.map(str)
 
-    # Define mapping logic for profiles
-    def rfm_segment(rfm_code):
-        # Extract R, F, M as integers
-        r, f, m = map(int, list(rfm_code))
-
-        # Define rules based on common RFM segmentation logic
-        if r == 1 and f == 1 and m == 1:
-            return 'champion'
-        elif r == 1 and f <= 2 and m <= 2:
-            return 'loyal_customer'
-        elif r <= 2 and f <= 3 and m <= 3:
-            return 'potential_loyalist'
-        elif r == 3 and f == 3 and m == 3:
-            return 'needs_attention'
-        elif r == 4 and f == 4 and m == 4:
-            return 'at_risk'
-        elif r >= 3 and f >= 3:
-            return 'about_to_sleep'
-        elif r == 4:
-            return 'hibernating'
-        else:
-            return 'others'
-
     # Add column B using map
-    rfmSegmentation['profile'] = rfmSegmentation['RFMClass'].apply(rfm_segment)
+    rfmSegmentation['profile'] = rfmSegmentation['RFMClass'].apply(func.rfm_segment)
 
     # Inject custom CSS to set the width of the multiselect widget
     st.markdown("""

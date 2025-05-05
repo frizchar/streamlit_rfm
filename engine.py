@@ -250,12 +250,12 @@ def run_app(data: pd.DataFrame) -> None:
         st.altair_chart(final_chart, use_container_width=False)
 
         st.markdown("<p style='text-align: center;'>mean monetary value - heatmap</p>", unsafe_allow_html=True)
-        # Pivot the data to get the mean monetary value for each R-F combination
+        # pivot the data to get the mean monetary value for each R-F combination
         rfm_pivot = rfmSegmentation.groupby(['R_Quartile', 'F_Quartile'])['MonetaryValue'].mean().round(0).reset_index()
 
-        # Create the Altair heatmap
+        # create the mean monetary value heatmap
         heatmap = alt.Chart(rfm_pivot).mark_rect().encode(
-            x=alt.X('F_Quartile:O', title='Frequency score'),
+            x=alt.X('F_Quartile:O', title='Frequency score', axis=alt.Axis(labelAngle=0)),
             y=alt.Y('R_Quartile:O', title='Recency score'),
             color=alt.Color('MonetaryValue:Q', title='mean mon.value', scale=alt.Scale(scheme='blues')),
             tooltip=['R_Quartile', 'F_Quartile', 'MonetaryValue']

@@ -1,6 +1,6 @@
 # streamlit_rfm
 ### Overview
-App on customer analytics hosted [here](https://castoma.streamlit.app/).
+App on customer analytics (hosted [here](https://castoma.streamlit.app/)).
 
 ### Folder structure
  ```

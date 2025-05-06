@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
-import tomli
+import tomllib
 from utils import engine
 
 st.set_page_config(
@@ -25,7 +25,7 @@ st.image(svg_content, width=80)
 def load_sample_toml():
     try:
         with open("assets/sample_data.toml", "rb") as f:
-            sample_data_dict = tomli.load(f)
+            sample_data_dict = tomllib.load(f)
 
         if isinstance(sample_data_dict, dict):
             return pd.DataFrame(sample_data_dict)

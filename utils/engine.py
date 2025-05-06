@@ -71,6 +71,50 @@ def run_app(data: pd.DataFrame) -> None:
             margin-bottom: 1px;  /* reduce space below title */
             margin-top: 0;       /* remove space above title */
         '>
+            core KPIs
+        </h2>
+        """,
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        """
+        <hr style='
+            border: 3px solid #bbb; 
+            width: 100%; 
+            margin-top: 0;        /* remove space above line */
+            margin-bottom: 16px;  /* optional space below line */
+        '>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # calculate Average Order Value (AOV)
+    total_revenue = df['orderValue'].sum()
+    number_of_orders = df['orderID'].nunique()
+    aov = total_revenue / number_of_orders
+
+    # calculate Order Frequency
+    number_of_customers = df['customerID'].nunique()
+    order_frequency = number_of_orders / number_of_customers
+
+    # Display side by side using columns
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.metric(label="Average Order Value", value=f"€{aov:,.2f}")
+
+    with col2:
+        st.metric(label="Order Frequency", value=f"{order_frequency:.2f} orders/customer")
+
+    # section title with line separator
+    st.markdown(
+        """
+        <h2 style='
+            text-align: center; 
+            font-weight: bold; 
+            margin-bottom: 1px;  /* reduce space below title */
+            margin-top: 0;       /* remove space above title */
+        '>
             RFM analysis
         </h2>
         """,

@@ -47,6 +47,7 @@ def run_app(data: pd.DataFrame) -> None:
     metadata_dict = {
         '# of rows': len(df),
         '# of columns': 4,
+        'missing values': int(df.isnull().any(axis=1).sum()),
         'time period': "[" + min(df['orderDate']).strftime("%d/%m/%Y") + ", " +
                        max(df['orderDate']).strftime("%d/%m/%Y") + "]"
     }
@@ -89,9 +90,9 @@ def run_app(data: pd.DataFrame) -> None:
     )
 
     # calculate Average Order Value (AOV)
-    total_revenue = df['orderValue'].sum()
+    total_orderValue = df['orderValue'].sum()
     number_of_orders = df['orderID'].nunique()
-    aov = total_revenue / number_of_orders
+    aov = total_orderValue / number_of_orders
 
     # calculate Order Frequency
     number_of_customers = df['customerID'].nunique()
@@ -105,13 +106,13 @@ def run_app(data: pd.DataFrame) -> None:
     col1, col2, col3, col4, col5, col6 = st.columns([1, 1, 1, 1, 2, 1])
 
     with col1:
-        st.metric(label="# unique customers", value=f"{number_of_customers:,}")
+        st.metric(label="\# unique customers", value=f"{number_of_customers:,}")
 
     with col2:
-        st.metric(label="total orders", value=f"{number_of_orders:,}")
+        st.metric(label="\# orders", value=f"{number_of_orders:,}")
 
     with col3:
-        st.metric(label="total revenue", value=f"€{total_revenue:,.2f}")
+        st.metric(label="total order value", value=f"€{total_orderValue:,.2f}")
 
     with col4:
         st.metric(label="mean order value", value=f"€{aov:,.2f}")

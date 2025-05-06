@@ -108,19 +108,19 @@ def run_app(data: pd.DataFrame) -> None:
         st.metric(label="# unique customers", value=f"{number_of_customers:,}")
 
     with col2:
-        st.metric(label="Total Orders", value=f"{number_of_orders:,}")
+        st.metric(label="total orders", value=f"{number_of_orders:,}")
 
     with col3:
-        st.metric(label="Total Revenue", value=f"€{total_revenue:,.2f}")
+        st.metric(label="total revenue", value=f"€{total_revenue:,.2f}")
 
     with col4:
-        st.metric(label="Average Order Value", value=f"€{aov:,.2f}")
+        st.metric(label="mean order value", value=f"€{aov:,.2f}")
 
     with col5:
-        st.metric(label="Order Frequency", value=f"{order_frequency:.2f} orders/customer")
+        st.metric(label="order frequency", value=f"{order_frequency:.2f} orders/customer")
 
     with col6:
-        st.metric(label="Customer Lifetime Value", value=f"€{clv:,.2f}")
+        st.metric(label="customer lifetime value", value=f"€{clv:,.2f}")
 
     # section title with line separator
     st.markdown(

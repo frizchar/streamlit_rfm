@@ -97,14 +97,27 @@ def run_app(data: pd.DataFrame) -> None:
     number_of_customers = df['customerID'].nunique()
     order_frequency = number_of_orders / number_of_customers
 
+    # calculate Customer Lifetime Value (average total order value per customer)
+    clv_per_customer = df.groupby('customerID')['orderValue'].sum()
+    clv = clv_per_customer.mean() if not clv_per_customer.empty else 0
+
     # Display side by side using columns
-    col1, col2 = st.columns(2)
+    col1, col2, col3, col4, col5 = st.columns([1, 2, 1, 1, 1])
 
     with col1:
         st.metric(label="Average Order Value", value=f"€{aov:,.2f}")
 
     with col2:
         st.metric(label="Order Frequency", value=f"{order_frequency:.2f} orders/customer")
+
+    with col3:
+        st.metric(label="Total Orders", value=f"{number_of_orders:,}")
+
+    with col4:
+        st.metric(label="Total Revenue", value=f"€{total_revenue:,.2f}")
+
+    with col5:
+        st.metric(label="Customer Lifetime Value", value=f"€{clv:,.2f}")
 
     # section title with line separator
     st.markdown(

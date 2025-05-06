@@ -46,7 +46,7 @@ def run_app(data: pd.DataFrame) -> None:
 
     metadata_dict = {
         '# of rows': len(df),
-        '# of unique customers': df['customerID'].nunique(),
+        '# of columns': 4,
         'time period': "[" + min(df['orderDate']).strftime("%d/%m/%Y") + ", " +
                        max(df['orderDate']).strftime("%d/%m/%Y") + "]"
     }
@@ -102,21 +102,24 @@ def run_app(data: pd.DataFrame) -> None:
     clv = clv_per_customer.mean() if not clv_per_customer.empty else 0
 
     # Display side by side using columns
-    col1, col2, col3, col4, col5 = st.columns([1, 2, 1, 1, 1])
+    col1, col2, col3, col4, col5, col6 = st.columns([1, 1, 1, 1, 2, 1])
 
     with col1:
-        st.metric(label="Average Order Value", value=f"€{aov:,.2f}")
+        st.metric(label="# unique customers", value=f"{number_of_customers:,}")
 
     with col2:
-        st.metric(label="Order Frequency", value=f"{order_frequency:.2f} orders/customer")
-
-    with col3:
         st.metric(label="Total Orders", value=f"{number_of_orders:,}")
 
-    with col4:
+    with col3:
         st.metric(label="Total Revenue", value=f"€{total_revenue:,.2f}")
 
+    with col4:
+        st.metric(label="Average Order Value", value=f"€{aov:,.2f}")
+
     with col5:
+        st.metric(label="Order Frequency", value=f"{order_frequency:.2f} orders/customer")
+
+    with col6:
         st.metric(label="Customer Lifetime Value", value=f"€{clv:,.2f}")
 
     # section title with line separator

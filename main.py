@@ -1,19 +1,18 @@
 import streamlit as st
 import pandas as pd
 import os
-import tomllib
-import engine
-
+import tomli
+from utils import engine
 
 st.set_page_config(
     page_title="castoma",  # Title displayed in the browser tab
-    page_icon="favicon.ico",
+    page_icon="assets/favicon.ico",
     layout="wide"
 )
 
 # insert logo, source: https://www.svgrepo.com/
 working_directory = os.getcwd()
-relative_path = "castoma2.svg"
+relative_path = "assets/castoma.svg"
 full_path = os.path.join(working_directory, relative_path)
 
 with open(full_path, "r") as f:
@@ -25,8 +24,8 @@ st.image(svg_content, width=80)
 
 def load_sample_toml():
     try:
-        with open("sample_data.toml", "rb") as f:
-            sample_data_dict = tomllib.load(f)
+        with open("assets/sample_data.toml", "rb") as f:
+            sample_data_dict = tomli.load(f)
 
         if isinstance(sample_data_dict, dict):
             return pd.DataFrame(sample_data_dict)

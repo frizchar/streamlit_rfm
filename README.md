@@ -2,6 +2,8 @@
 ### Overview
 App on customer analytics (hosted [here](https://castoma.streamlit.app/)).
 
+Implements [RFM analysis](https://en.wikipedia.org/wiki/RFM_(market_research)) on customer transactional data.
+
 ### Folder structure
  ```
 streamlit_rfm/

@@ -6,6 +6,10 @@ from utils import functions as func
 
 
 def run_app(data: pd.DataFrame) -> None:
+    st.markdown('<div id="target-section"></div>', unsafe_allow_html=True)
+    # st.header("Target Section")
+    # st.write("This is the section to scroll to.")
+
     # section title with line separator
     st.markdown(
         """

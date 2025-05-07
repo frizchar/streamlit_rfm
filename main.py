@@ -2,7 +2,9 @@ import streamlit as st
 import pandas as pd
 import os
 import tomllib
+from streamlit.components.v1 import html
 from utils import engine
+
 
 st.set_page_config(
     page_title="castoma",  # Title displayed in the browser tab
@@ -61,6 +63,15 @@ def main():
         df = load_sample_toml()
         if df is not None:
             st.success("sample data loaded")
+            scroll_js = """
+            <script>
+            const element = window.parent.document.getElementById('target-section');
+            if (element) {
+                element.scrollIntoView({behavior: 'smooth'});
+            }
+            </script>
+            """
+            html(scroll_js, height=0)
 
     # file upload section second
     uploaded_file = st.file_uploader("Or upload your own CSV file", type="csv")

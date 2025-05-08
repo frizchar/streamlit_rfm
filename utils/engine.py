@@ -150,7 +150,7 @@ def run_app(data: pd.DataFrame) -> None:
         labels={'orderDate': 'Week', 'orderValue_smooth': 'ylabel'}
     )
 
-    # Increase x-axis label font size
+    # remove axis labels
     fig.update_layout(
         xaxis_title='',  # removes the x-axis label
         yaxis_title=''  # removes the y-axis label

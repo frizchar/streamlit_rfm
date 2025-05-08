@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
-import tomllib
+import tomli
 from streamlit.components.v1 import html
 from utils import engine
 
@@ -27,7 +27,7 @@ st.image(svg_content, width=80)
 def load_sample_toml():
     try:
         with open("assets/sample_data.toml", "rb") as f:
-            sample_data_dict = tomllib.load(f)
+            sample_data_dict = tomli.load(f)
 
         if isinstance(sample_data_dict, dict):
             return pd.DataFrame(sample_data_dict)
@@ -49,8 +49,8 @@ def main():
     st.markdown(
         '<div style="line-height:1.5; margin:0; padding:0;">employing marketing analytics '
         'to develop customer-behavior'
-        ' profiles based on past consumer data<br>castoma implements customer segmentation'
-        ' via RFM analysis<br><br> ',
+        ' profiles based on past consumer data<br>castoma provides an overview of core KPIs and '
+        'implements customer segmentation<br><br> ',
         unsafe_allow_html=True
     )
 

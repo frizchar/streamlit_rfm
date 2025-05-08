@@ -160,12 +160,12 @@ def run_app(data: pd.DataFrame) -> None:
     fig.update_traces(
         line=dict(
             dash='dash',
-            color='rgba(0, 0, 255, 0.4)'  # example: blue line with 50% opacity
+            color='rgba(0, 0, 255, 0.3)'  # line with 40% opacity
         ),
         mode='lines+markers',
         marker=dict(
             size=10,
-            color='rgba(139, 0, 0, 0.6)'  # example: blue line with 50% opacity
+            color='rgba(139, 0, 0, 0.6)'  # markers with 60% opacity
         )
     )
 

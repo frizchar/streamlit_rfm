@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import numpy as np
+import plotly.express as px
 import altair as alt
 from utils import functions as func
 
@@ -126,6 +127,61 @@ def run_app(data: pd.DataFrame) -> None:
 
     with col6:
         st.metric(label="customer lifetime value", value=f"€{clv:,.2f}")
+
+    # calculate weekly sales
+    df_sales = df.copy()
+    df_sales['orderDate'] = pd.to_datetime(df_sales['orderDate'])
+
+    # Set orderDate as index for resampling
+    df_sales.set_index('orderDate', inplace=True)
+
+    # Resample by week (W-MON means weeks starting on Monday)
+    weekly_sales = df_sales['orderValue'].resample('W-MON').sum().reset_index().sort_values('orderDate')
+
+    # Optional: smooth weekly sales with rolling average (e.g., 3 weeks)
+    weekly_sales['orderValue_smooth'] = weekly_sales['orderValue'].rolling(window=3, min_periods=1).mean()
+
+    # plot weekly sales
+    fig = px.line(
+        weekly_sales,
+        x='orderDate',
+        y='orderValue_smooth',
+        title='Weekly Sales (€)',
+        labels={'orderDate': 'Week', 'orderValue_smooth': 'ylabel'}
+    )
+
+    # Increase x-axis label font size
+    fig.update_layout(
+        xaxis_title_font=dict(size=18),  # set desired font size here
+        yaxis_title=''  # removes the y-axis label
+    )
+
+    # update line to dashed and add markers (scatter points)
+    fig.update_traces(
+        line=dict(
+            dash='dash',
+            color='rgba(0, 0, 255, 0.4)'  # example: blue line with 50% opacity
+        ),
+        mode='lines+markers',
+        marker=dict(
+            size=10,
+            color='rgba(139, 0, 0, 0.6)'  # example: blue line with 50% opacity
+        )
+    )
+
+    # Center the title and increase font size
+    fig.update_layout(
+        title=dict(
+            text="Weekly Sales [€]",  # Optional: explicitly set title text here
+            x=0.5,
+            xanchor='center',
+            font=dict(
+                size=24  # Increase this number to make the title larger
+            )
+        )
+    )
+
+    st.plotly_chart(fig)
 
     # section title with line separator
     st.markdown(

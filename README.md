@@ -21,4 +21,4 @@ streamlit_rfm/
  ```
 
 ### Dependencies
-Python interpreter version used for this project: **3.13.3**
+Python interpreter version used for this project: **3.9.4**

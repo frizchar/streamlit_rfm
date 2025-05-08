@@ -10,7 +10,7 @@ streamlit_rfm/
 ├── main.py               # main entry point for the app
 ├── requirements.txt      # required packages
 ├── .streamlit/
-│   └── config.toml       # streamlit configuration
+│   └── config.toml       # streamlit theme configuration
 ├── assets/
 │   └── castoma.svg       # svg file
 │   └── favicon.ico       # favicon file

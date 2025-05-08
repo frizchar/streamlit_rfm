@@ -152,7 +152,7 @@ def run_app(data: pd.DataFrame) -> None:
 
     # Increase x-axis label font size
     fig.update_layout(
-        xaxis_title_font=dict(size=18),  # set desired font size here
+        xaxis_title='',  # removes the x-axis label
         yaxis_title=''  # removes the y-axis label
     )
 

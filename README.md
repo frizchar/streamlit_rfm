@@ -8,6 +8,7 @@ Implements [RFM analysis](https://en.wikipedia.org/wiki/RFM_(market_research)) o
  ```
 streamlit_rfm/
 ├── main.py               # main entry point for the app
+├── requirements.txt      # required packages
 ├── .streamlit/
 │   └── config.toml       # streamlit configuration
 ├── assets/

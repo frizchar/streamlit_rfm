@@ -50,11 +50,9 @@ def main():
         '<div style="line-height:1.5; margin:0; padding:0;">employing marketing analytics '
         'to develop customer-behavior'
         ' profiles based on past consumer data<br>castoma implements customer segmentation'
-        ' via RFM analysis<br><br>try out the app with sample data</div>',
+        ' via RFM analysis<br><br> ',
         unsafe_allow_html=True
     )
-
-    st.markdown("""or upload your own .csv file with this column layout: `[customerID, orderDate, orderID, orderValue]`""")
 
     df = None
 
@@ -74,7 +72,7 @@ def main():
             html(scroll_js, height=0)
 
     # file upload section second
-    uploaded_file = st.file_uploader("Or upload your own CSV file", type="csv")
+    uploaded_file = st.file_uploader("or upload your .csv file with columns: `[customerID, orderDate, orderID, orderValue]`", type="csv")
 
     # apply custom CSS to adjust the width
     css = '''

@@ -52,7 +52,7 @@ def run_app(data: pd.DataFrame) -> None:
     metadata_dict = {
         '# of rows': len(df),
         '# of columns': 4,
-        'missing values': int(df.isnull().any(axis=1).sum()),
+        '# of missing values': int(df.isnull().any(axis=1).sum()),
         'time period': "[" + min(df['orderDate']).strftime("%d/%m/%Y") + ", " +
                        max(df['orderDate']).strftime("%d/%m/%Y") + "]"
     }

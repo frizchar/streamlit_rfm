@@ -2,7 +2,9 @@
 ### Overview
 Customer analytics app (hosted [here](https://castoma.streamlit.app/)).
 
-Implements [RFM analysis](https://en.wikipedia.org/wiki/RFM_(market_research)) on customer transactional data.
+App features:
+* provides core KPIs of customer transactional data
+* implements customer segmentation via [RFM analysis](https://en.wikipedia.org/wiki/RFM_(market_research)) 
 
 ### Folder structure
  ```

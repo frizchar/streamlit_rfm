@@ -15,6 +15,10 @@ streamlit_rfm/
 │   └── config.toml       # streamlit theme configuration
 ├── assets/
 │   └── castoma.svg       # svg file
+│   └── data_icon.svg     # svg file
+│   └── kpis_icon.svg     # svg file
+│   └── profiles_icon.svg # svg file
+│   └── rfm_icon.svg      # svg file
 │   └── favicon.ico       # favicon file
 │   └── sample_data.toml  # sample data file
 ├── utils/

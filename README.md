@@ -9,21 +9,22 @@ App features:
 ### Folder structure
  ```
 streamlit_rfm/
-├── main.py               # main entry point for the app
-├── requirements.txt      # required packages
+├── main.py                  # main entry point for the app
+├── requirements.txt         # required packages
 ├── .streamlit/
-│   └── config.toml       # streamlit theme configuration
+│   └── config.toml          # streamlit theme configuration
 ├── assets/
-│   └── castoma.svg       # svg file
-│   └── data_icon.svg     # svg file
-│   └── kpis_icon.svg     # svg file
-│   └── profiles_icon.svg # svg file
-│   └── rfm_icon.svg      # svg file
-│   └── favicon.ico       # favicon file
-│   └── sample_data.toml  # sample data file
+│   └── castoma.svg          # svg file
+│   └── data_icon.svg        # svg file
+│   └── kpis_icon.svg        # svg file
+│   └── profiles_icon.svg    # svg file
+│   └── rfm_icon.svg         # svg file
+│   └── favicon.ico          # favicon file
+│   └── sample_data.toml     # sample data file
 ├── utils/
-│   └── engine.py         # engine module
-│   └── functions.py      # functions module
+│   └── engine.py            # engine module
+│   └── functions.py         # functions module
+│   └── section_function.py  # section title module
  ```
 
 ### Dependencies

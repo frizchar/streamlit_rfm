@@ -4,6 +4,7 @@ import numpy as np
 import plotly.express as px
 import altair as alt
 from utils import functions as func
+from utils import section_function as sxfunc
 
 
 def run_app(data: pd.DataFrame) -> None:
@@ -11,20 +12,9 @@ def run_app(data: pd.DataFrame) -> None:
     # st.header("Target Section")
     # st.write("This is the section to scroll to.")
 
-    # section title with line separator
-    st.markdown(
-        """
-        <h2 style='
-            text-align: center; 
-            font-weight: bold; 
-            margin-bottom: 1px;  /* reduce space below title */
-            margin-top: 0;       /* remove space above title */
-        '>
-            data
-        </h2>
-        """,
-        unsafe_allow_html=True
-    )
+    # generate section title
+    sxfunc.insert_section_title("data", "data_icon.svg")
+    # insert line
     st.markdown(
         """
         <hr style='
@@ -68,20 +58,9 @@ def run_app(data: pd.DataFrame) -> None:
         st.write("metadata:")
         st.json(metadata_dict)
 
-    # section title with line separator
-    st.markdown(
-        """
-        <h2 style='
-            text-align: center; 
-            font-weight: bold; 
-            margin-bottom: 1px;  /* reduce space below title */
-            margin-top: 0;       /* remove space above title */
-        '>
-            core KPIs
-        </h2>
-        """,
-        unsafe_allow_html=True
-    )
+    # generate section title
+    sxfunc.insert_section_title("core KPIs", "kpis_icon.svg")
+    # insert line
     st.markdown(
         """
         <hr style='
@@ -183,20 +162,9 @@ def run_app(data: pd.DataFrame) -> None:
 
     st.plotly_chart(fig)
 
-    # section title with line separator
-    st.markdown(
-        """
-        <h2 style='
-            text-align: center; 
-            font-weight: bold; 
-            margin-bottom: 1px;  /* reduce space below title */
-            margin-top: 0;       /* remove space above title */
-        '>
-            RFM analysis
-        </h2>
-        """,
-        unsafe_allow_html=True
-    )
+    # generate section title
+    sxfunc.insert_section_title("RFM analysis", "rfm_icon.svg")
+    # insert line
     st.markdown(
         """
         <hr style='
@@ -242,20 +210,9 @@ def run_app(data: pd.DataFrame) -> None:
     st.write("RFM metrics:")
     st.dataframe(rfm)
 
-    # Section separator with title
-    st.markdown(
-        """
-        <h2 style='
-            text-align: center; 
-            font-weight: bold; 
-            margin-bottom: 1px;  /* reduce space below title */
-            margin-top: 0;       /* remove space above title */
-        '>
-            profile analysis
-        </h2>
-        """,
-        unsafe_allow_html=True
-    )
+    # generate section title
+    sxfunc.insert_section_title("profile analysis", "profiles_icon.svg")
+    # insert line
     st.markdown(
         """
         <hr style='

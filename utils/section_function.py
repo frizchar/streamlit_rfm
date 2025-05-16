@@ -15,7 +15,7 @@ def insert_section_title(section_title, icon_file):
     svg_path = os.path.join(script_dir, "..", "assets", icon_file)
     svg_path = os.path.normpath(svg_path)  # normalize path separators
 
-    # Encode your SVG icon
+    # encode your SVG icon
     svg_b64 = svg_to_base64(svg_path)
 
     # create HTML with SVG image inline with title text

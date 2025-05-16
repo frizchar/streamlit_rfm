@@ -9,23 +9,9 @@ from utils import section_function as sxfunc
 
 def run_app(data: pd.DataFrame) -> None:
     st.markdown('<div id="target-section"></div>', unsafe_allow_html=True)
-    # st.header("Target Section")
-    # st.write("This is the section to scroll to.")
 
-    # generate section title
+    # generate section title and separating line
     sxfunc.insert_section_title("data", "data_icon.svg")
-    # insert line
-    st.markdown(
-        """
-        <hr style='
-            border: 3px solid #bbb; 
-            width: 100%; 
-            margin-top: 0;        /* remove space above line */
-            margin-bottom: 16px;  /* optional space below line */
-        '>
-        """,
-        unsafe_allow_html=True
-    )
 
     # load the data in pandas dataframe format
     df = data
@@ -58,20 +44,8 @@ def run_app(data: pd.DataFrame) -> None:
         st.write("metadata:")
         st.json(metadata_dict)
 
-    # generate section title
+    # generate section title and separating line
     sxfunc.insert_section_title("core KPIs", "kpis_icon.svg")
-    # insert line
-    st.markdown(
-        """
-        <hr style='
-            border: 3px solid #bbb; 
-            width: 100%; 
-            margin-top: 0;        /* remove space above line */
-            margin-bottom: 16px;  /* optional space below line */
-        '>
-        """,
-        unsafe_allow_html=True
-    )
 
     # calculate Average Order Value (AOV)
     total_orderValue = df['orderValue'].sum()
@@ -162,20 +136,8 @@ def run_app(data: pd.DataFrame) -> None:
 
     st.plotly_chart(fig)
 
-    # generate section title
+    # generate section title and separating line
     sxfunc.insert_section_title("RFM analysis", "rfm_icon.svg")
-    # insert line
-    st.markdown(
-        """
-        <hr style='
-            border: 3px solid #bbb; 
-            width: 100%; 
-            margin-top: 0;        /* remove space above line */
-            margin-bottom: 16px;  /* optional space below line */
-        '>
-        """,
-        unsafe_allow_html=True
-    )
 
     st.markdown(
         'RFM analysis is a customer segmentation technique that helps businesses identify and rank their '
@@ -210,20 +172,8 @@ def run_app(data: pd.DataFrame) -> None:
     st.write("RFM metrics:")
     st.dataframe(rfm)
 
-    # generate section title
+    # generate section title and separating line
     sxfunc.insert_section_title("profile analysis", "profiles_icon.svg")
-    # insert line
-    st.markdown(
-        """
-        <hr style='
-            border: 3px solid #bbb; 
-            width: 100%; 
-            margin-top: 0;        /* remove space above line */
-            margin-bottom: 16px;  /* optional space below line */
-        '>
-        """,
-        unsafe_allow_html=True
-    )
 
     st.markdown(
         '<div style="line-height:1.5; margin:0; padding:0;">Each customer '

@@ -29,4 +29,17 @@ def insert_section_title(section_title, icon_file):
     # Render the HTML in Streamlit with unsafe_allow_html=True
     st.markdown(html_title, unsafe_allow_html=True)
 
+    # insert line
+    st.markdown(
+        """
+        <hr style='
+            border: 3px solid #bbb; 
+            width: 100%; 
+            margin-top: 0;        /* remove space above line */
+            margin-bottom: 16px;  /* optional space below line */
+        '>
+        """,
+        unsafe_allow_html=True
+    )
+
     return

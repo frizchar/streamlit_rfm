@@ -16,31 +16,32 @@ def run_app(data: pd.DataFrame) -> None:
     # load the data in pandas dataframe format
     df = data
 
-    # Ensure proper data types
+    # ensure proper data types
     df['orderDate'] = pd.to_datetime(df['orderDate'], dayfirst=True)
-    # Reindex to start from 1
+    # reindex to start from 1
     df.index = np.arange(1, len(df) + 1)
-    # Name the index
+    # name the index
     df.index.name = '#'
-    # Set column headers to center alignment
-    # pd.set_option('display.colheader_justify', 'center')
-
-    metadata_dict = {
-        '# of rows': len(df),
-        '# of columns': df.shape[1],
-        '# of missing values': int(df.isnull().any(axis=1).sum()),
-        'time period': "[" + min(df['orderDate']).strftime("%d/%m/%Y") + ", " +
-                       max(df['orderDate']).strftime("%d/%m/%Y") + "]"
-    }
 
     # Create two columns
     col1, col2 = st.columns([2, 1])
     # Display uploaded data in the left column
     with col1:
+        df_data = df.copy()
+        df_data['orderDate'] = df_data['orderDate'].astype(str).str[:10]
+
         st.write("data:")
-        st.dataframe(df, height=220)
+        st.dataframe(df_data, height=220)
     # Create a chart using Plotly and display it in the right column
     with col2:
+        metadata_dict = {
+            '# of rows': len(df),
+            '# of columns': df.shape[1],
+            '# of missing values': int(df.isnull().any(axis=1).sum()),
+            'time period': "[" + min(df['orderDate']).strftime("%d/%m/%Y") + ", " +
+                           max(df['orderDate']).strftime("%d/%m/%Y") + "]"
+        }
+
         st.write("metadata:")
         st.json(metadata_dict)
 

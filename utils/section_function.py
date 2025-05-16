@@ -4,7 +4,7 @@ import os
 
 
 def insert_section_title(section_title, icon_file):
-    # Function to load SVG and encode it as base64
+    # function to load SVG and encode it as base64
     def svg_to_base64(svg_path):
         with open(svg_path, "r") as f:
             svg_content = f.read()
@@ -18,7 +18,7 @@ def insert_section_title(section_title, icon_file):
     # Encode your SVG icon
     svg_b64 = svg_to_base64(svg_path)
 
-    # Create HTML with SVG image inline with title text
+    # create HTML with SVG image inline with title text
     html_title = f"""
     <div style="display: flex; justify-content: center; align-items:center;">
         <img src="data:image/svg+xml;base64,{svg_b64}" style="height: 40px; margin-right: 10px; margin-bottom: -5px;" />
@@ -26,10 +26,10 @@ def insert_section_title(section_title, icon_file):
     </div>
     """
 
-    # Render the HTML in Streamlit with unsafe_allow_html=True
+    # render the HTML in Streamlit with unsafe_allow_html=True
     st.markdown(html_title, unsafe_allow_html=True)
 
-    # insert line
+    # insert separating line after section title
     st.markdown(
         """
         <hr style='

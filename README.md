@@ -1,9 +1,9 @@
 # streamlit_rfm
 ### Overview
-Customer analytics app (hosted [here](https://castoma.streamlit.app/)).
+Customer analytics app (hosted [here](https://castoma.streamlit.app/)) based on customer transactional data.
 
 App features:
-* core KPIs of customer transactional data
+* core KPIs
 * customer segmentation via [RFM analysis](https://en.wikipedia.org/wiki/RFM_(market_research)) 
 
 ### Folder structure

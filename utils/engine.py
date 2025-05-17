@@ -29,9 +29,10 @@ def run_app(data: pd.DataFrame) -> None:
     with col1:
         df_data = df.copy()
         df_data['orderDate'] = df_data['orderDate'].astype(str).str[:10]
+        df_data.index = df_data .index.astype(str)
 
         st.write("data:")
-        st.dataframe(df_data, height=220)
+        st.dataframe(df_data, column_config={r'\#': {'alignment': 'center'}}, height=220)
     # Create a chart using Plotly and display it in the right column
     with col2:
         metadata_dict = {
@@ -160,7 +161,7 @@ def run_app(data: pd.DataFrame) -> None:
     }).reset_index()
 
     # reindex to start from 1
-    rfm.index = np.arange(1, len(rfm) + 1)
+    rfm.index = np.arange(1, len(rfm) + 1).astype(str)
     # Name the index
     rfm.index.name = '#'
 

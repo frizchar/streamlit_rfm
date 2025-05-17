@@ -279,7 +279,7 @@ def run_app(data: pd.DataFrame) -> None:
 
         st.altair_chart(final_chart, use_container_width=False)
 
-        st.markdown("<p style='text-align: center;'>mean monetary value - heatmap</p>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center;'>mean monetary value [€]</p>", unsafe_allow_html=True)
         # pivot the data to get the mean monetary value for each R-F combination
         rfm_pivot = rfmSegmentation.groupby(['R_Quartile', 'F_Quartile'])['MonetaryValue'].mean().round(0).reset_index()
 
@@ -331,7 +331,7 @@ def run_app(data: pd.DataFrame) -> None:
         st.altair_chart(c2f, use_container_width=True)
 
     with col3:
-        st.markdown("<p style='text-align: center;'>mean monetary value per profile</p>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center;'>mean monetary value per profile [€]</p>", unsafe_allow_html=True)
         # Calculate average recency per segment
         avg_m = rfmSegmentation.groupby('profile')['MonetaryValue'].mean().round(0).sort_values(ascending=False)
         avg_m_df = avg_m.reset_index()

@@ -356,7 +356,7 @@ def run_app(data: pd.DataFrame) -> None:
     st.markdown(
         f"{count_champions} out of {number_of_customers} customers ({count_champions_perce:.1f}%) fall "
         f"into the '_champion_' segment, namely loyal brand advocates who outperform other customers across "
-        f"all metrics (_RFM_). <br> This group represents loyal brand advocates who should be prioritized "
+        f"all metrics (_RFM_). <br> This group represents core revenue drivers who should be prioritized "
         f"for loyalty rewards and exclusive offers to maximize retention.",
         unsafe_allow_html = True
     )

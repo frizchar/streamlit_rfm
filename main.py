@@ -49,8 +49,8 @@ def main():
     st.markdown(
         '<div style="line-height:1.5; margin:0; padding:0;">employing marketing analytics '
         'to develop customer-behavior'
-        ' profiles based on past consumer data<br>castoma provides an overview of core KPIs and '
-        'implements customer segmentation<br><br> ',
+        ' profiles based on past consumer data<br>castoma provides an overview of core KPIs, '
+        'implements customer segmentation, generates insights and recommends marketing strategies <br><br> ',
         unsafe_allow_html=True
     )
 

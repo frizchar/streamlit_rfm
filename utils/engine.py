@@ -348,7 +348,7 @@ def run_app(data: pd.DataFrame) -> None:
     # generate section title and separating line
     sxfunc.insert_section_title("insights & recommended marketing strategies", "insights_icon.svg")
 
-    st.subheader(":blue[_top-tier customers:_]")
+    st.subheader(":blue[_handling top-tier customers:_]")
 
     count_champions = counts_df.loc[counts_df['profile'] == 'champion', '# customers'].iloc[0]
     count_champions_perce = 100*count_champions/number_of_customers

@@ -345,4 +345,48 @@ def run_app(data: pd.DataFrame) -> None:
         ).properties(height=200)
         st.altair_chart(c2m, use_container_width=True)
 
+    # generate section title and separating line
+    sxfunc.insert_section_title("insights & recommended marketing strategies", "insights_icon.svg")
+
+    st.subheader(":blue[_top-tier customers:_]")
+
+    count_champions = counts_df.loc[counts_df['profile'] == 'champion', '# customers'].iloc[0]
+    count_champions_perce = 100*count_champions/number_of_customers
+
+    st.markdown(
+        f"{count_champions} out of {number_of_customers} customers ({count_champions_perce:.1f}%) fall "
+        f"into the '_champion_' segment, namely loyal brand advocates who outperform other customers across "
+        f"all metrics (_RFM_). <br> This group represents loyal brand advocates who should be prioritized "
+        f"for loyalty rewards and exclusive offers to maximize retention.",
+        unsafe_allow_html = True
+    )
+
+    st.subheader(":blue[_upselling and cross-selling:_]")
+
+    count_potential_loyalist = counts_df.loc[counts_df['profile'] == 'potential_loyalist', '# customers'].iloc[0]
+    count_potential_loyalist_perce = 100*count_potential_loyalist/number_of_customers
+
+    st.markdown(
+        f"{count_potential_loyalist} out of {number_of_customers} customers ({count_potential_loyalist_perce:.1f}%) fall "
+        f"into the '_potential loyalist_' segment, that comprises of high-frequency customers who spend moderately."
+        f"<br> This type of customers may be nudged to increase average order value by recommending complementary products, "
+        f"<br> thus boosting further conversion rates.",
+        unsafe_allow_html = True
+    )
+
+    st.subheader(":blue[_targeted reactivation:_]")
+
+    count_about_to_sleep = counts_df.loc[counts_df['profile'] == 'about_to_sleep', '# customers'].iloc[0]
+    count_about_to_sleep_perce = 100*count_about_to_sleep/number_of_customers
+
+    st.markdown(
+        f"{count_about_to_sleep} out of {number_of_customers} customers ({count_about_to_sleep_perce:.1f}%) fall "
+        f"into the '_about to sleep_' segment, indicating a significant group at risk of churn. "
+        f"<br> This suggests an opportunity to deploy reactivation "
+        f"campaigns such as special discounts or personalized emails to win them back."
+        f"<br> Customers classified as '_about to sleep_' respond well to personalized win-back "
+        f"campaigns offering discounts, resulting in improved reactivation rates.",
+        unsafe_allow_html = True
+    )
+
     return

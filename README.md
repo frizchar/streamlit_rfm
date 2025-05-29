@@ -4,7 +4,8 @@ Customer analytics app (hosted [here](https://castoma.streamlit.app/)) based on 
 
 ### App features
 * core KPIs
-* customer segmentation via [RFM analysis](https://en.wikipedia.org/wiki/RFM_(market_research)) 
+* customer segmentation via [RFM analysis](https://en.wikipedia.org/wiki/RFM_(market_research))
+* generation of insights and recommended marketing strategies
 
 ### Folder structure
  ```

@@ -20,6 +20,7 @@ streamlit_rfm/
 │   └── kpis_icon.svg        # svg file
 │   └── profiles_icon.svg    # svg file
 │   └── rfm_icon.svg         # svg file
+│   └── insights_icon.svg    # svg file
 │   └── favicon.ico          # favicon file
 │   └── sample_data.toml     # sample data file
 ├── utils/

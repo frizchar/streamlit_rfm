@@ -5,6 +5,7 @@ import plotly.express as px
 import altair as alt
 from utils import functions as func
 from utils import section_function as sxfunc
+import random
 
 
 def run_app(data: pd.DataFrame) -> None:
@@ -354,10 +355,12 @@ def run_app(data: pd.DataFrame) -> None:
     count_champions_perce = 100*count_champions/number_of_customers
 
     st.markdown(
-        f"{count_champions} out of {number_of_customers} customers ({count_champions_perce:.1f}%) fall "
-        f"into the '_champion_' segment, namely loyal brand advocates who outperform other customers across "
-        f"all metrics (_RFM_). <br> This group represents core revenue drivers who should be prioritized "
-        f"for loyalty rewards and exclusive offers to maximize retention.",
+        f"{count_champions} out of {number_of_customers} customers ({count_champions_perce:.1f}%) "
+        f"{random.choice(['constitute','fall into'])} the '_champion_' segment, namely loyal brand advocates "
+        f"who {random.choice(['do better','outperform'])} other customers across "
+        f"all metrics (_RFM_)."
+        f"<br> This group represents {random.choice(['core revenue drivers','high lifetime value customers'])} "
+        f"who should be prioritized for loyalty rewards and exclusive offers to maximize retention.",
         unsafe_allow_html = True
     )
 

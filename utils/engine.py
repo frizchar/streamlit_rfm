@@ -357,7 +357,7 @@ def run_app(data: pd.DataFrame) -> None:
     st.markdown(
         f"{count_champions} out of {number_of_customers} customers ({count_champions_perce:.1f}%) "
         f"{random.choice(['constitute','fall into'])} the '_champion_' segment, namely loyal brand advocates "
-        f"who {random.choice(['do better','outperform'])} other customers across "
+        f"who {random.choice(['do better than','outperform'])} other customers across "
         f"all metrics (_RFM_)."
         f"<br> This group represents {random.choice(['core revenue drivers','high lifetime value customers'])} "
         f"who should be prioritized for loyalty rewards and exclusive offers to maximize retention.",

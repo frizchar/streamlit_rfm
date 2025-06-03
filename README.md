@@ -3,7 +3,7 @@
 Customer analytics app (hosted [here](https://castoma.streamlit.app/)) based on customer transactional data.
 
 ### App features
-* core KPIs
+* core customer KPIs
 * customer segmentation via [RFM analysis](https://en.wikipedia.org/wiki/RFM_(market_research))
 * generation of insights and recommended marketing strategies
 

@@ -347,7 +347,7 @@ def run_app(data: pd.DataFrame) -> None:
         st.altair_chart(c2m, use_container_width=True)
 
     # generate section title and separating line
-    sxfunc.insert_section_title("customer retention analysis", "retention.svg")
+    sxfunc.insert_section_title("customer retention analysis", "retention_icon.svg")
 
     st.markdown(
         '<div style="line-height:1.5; margin:0; padding:0;">We calculate '

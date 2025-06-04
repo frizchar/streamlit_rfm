@@ -30,7 +30,7 @@ def run_app(data: pd.DataFrame) -> None:
     with col1:
         df_data = df.copy()
         df_data['orderDate'] = df_data['orderDate'].astype(str).str[:10]
-        df_data.index = df_data .index.astype(str)
+        df_data.index = df_data.index.astype(str)
 
         st.write("data:")
         st.dataframe(df_data, column_config={r'\#': {'alignment': 'center'}}, height=220)
@@ -345,6 +345,104 @@ def run_app(data: pd.DataFrame) -> None:
             color=alt.Color('avg_m', scale=alt.Scale(scheme='greens'), legend=None)
         ).properties(height=200)
         st.altair_chart(c2m, use_container_width=True)
+
+    # generate section title and separating line
+    sxfunc.insert_section_title("customer retention analysis", "retention.svg")
+
+    st.markdown(
+        '<div style="line-height:1.5; margin:0; padding:0;">We calculate '
+        'the monthly retention rate.<br> <br><div>',
+        unsafe_allow_html=True
+    )
+
+    # Extract year-month for grouping
+    df['orderMonth'] = df['orderDate'].dt.to_period('M')
+
+    # Group by customer and month to get unique customers per month
+    monthly_customers = df.groupby('orderMonth')['customerID'].apply(set).sort_index()
+
+    # Initialize a list to store retention rates
+    retention_rates = []
+
+    # Iterate over months starting from the second month
+    months = monthly_customers.index
+
+    for i in range(1, len(months)):
+        current_month = months[i]
+        prev_month = months[i - 1]
+
+        customers_current = monthly_customers[current_month]
+        customers_prev = monthly_customers[prev_month]
+
+        # Calculate how many customers from prev month ordered again in current month
+        retained_customers = customers_current.intersection(customers_prev)
+
+        # Retention rate formula
+        if len(customers_prev) > 0:
+            retention_rate = len(retained_customers) / len(customers_prev) * 100
+        else:
+            retention_rate = None  # or 0 or np.nan if no customers in prev month
+
+        retention_rates.append({
+            'Year - Month': current_month.to_timestamp(),
+            'Retention Rate [%]': round(retention_rate, 1)
+        })
+
+    # Convert to DataFrame for better visualization
+    retention_df = pd.DataFrame(retention_rates)
+    # retention_df.drop(index=df.index[0], inplace=True)  # get rid of first month of dataset since it has no retention
+    retention_df['Year - Month'] = retention_df['Year - Month'].astype(str).str[:7]
+    retention_df.index = np.arange(1, len(retention_df) + 1)
+    retention_df.index.name = '#'
+    retention_df.index = retention_df.index.astype(str)
+
+    # create two columns
+    col1, col2 = st.columns([1, 3])
+    with col1:
+        st.dataframe(retention_df, column_config={r'\#': {'alignment': 'center'}}, height=400)
+    with col2:
+
+        # plot weekly sales
+        fig22 = px.line(
+            retention_df,
+            x='Year - Month',
+            y='Retention Rate [%]',
+            title='Retention Rate [%]',
+            labels={'Year - Month': 'Year - Month', 'Retention Rate [%]': 'Retention Rate [%]'}
+        )
+
+        # remove axis labels
+        fig22.update_layout(
+            xaxis_title='',  # removes the x-axis label
+            yaxis_title=''  # removes the y-axis label
+        )
+
+        # update line to dashed and add markers (scatter points)
+        fig22.update_traces(
+            line=dict(
+                dash='dash',
+                color='rgba(0, 0, 255, 0.3)'  # line with 40% opacity
+            ),
+            mode='lines+markers',
+            marker=dict(
+                size=10,
+                color='rgba(139, 0, 0, 0.6)'  # markers with 60% opacity
+            )
+        )
+
+        # Center the title and increase font size
+        fig22.update_layout(
+            title=dict(
+                text="Monthly Retention Rate [%]",  # Optional: explicitly set title text here
+                x=0.5,
+                xanchor='center',
+                font=dict(
+                    size=24  # Increase this number to make the title larger
+                )
+            )
+        )
+
+        st.plotly_chart(fig22)
 
     # generate section title and separating line
     sxfunc.insert_section_title("insights & recommended marketing strategies", "insights_icon.svg")

@@ -5,6 +5,7 @@ Customer analytics app (hosted [here](https://castoma.streamlit.app/)) based on 
 ### App features
 * core customer KPIs
 * customer segmentation via [RFM analysis](https://en.wikipedia.org/wiki/RFM_(market_research))
+* customer retention analysis
 * generation of insights and recommended marketing strategies
 
 ### Folder structure
@@ -21,6 +22,7 @@ streamlit_rfm/
 │   └── profiles_icon.svg    # svg file
 │   └── rfm_icon.svg         # svg file
 │   └── insights_icon.svg    # svg file
+│   └── retention_icon.svg    # svg file
 │   └── favicon.ico          # favicon file
 │   └── sample_data.toml     # sample data file
 ├── utils/

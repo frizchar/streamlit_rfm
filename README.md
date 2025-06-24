@@ -22,7 +22,7 @@ streamlit_rfm/
 │   └── profiles_icon.svg    # svg file
 │   └── rfm_icon.svg         # svg file
 │   └── insights_icon.svg    # svg file
-│   └── retention_icon.svg    # svg file
+│   └── retention_icon.svg   # svg file
 │   └── favicon.ico          # favicon file
 │   └── sample_data.toml     # sample data file
 ├── utils/

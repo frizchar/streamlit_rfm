@@ -1,4 +1,5 @@
-# streamlit_rfm
+# Streamlit Customer Analytics App
+
 ### Overview
 Customer analytics app (hosted [here](https://castoma.streamlit.app/)) based on customer transactional data.
 
